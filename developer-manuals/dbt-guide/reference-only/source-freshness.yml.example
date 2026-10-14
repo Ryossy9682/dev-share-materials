@@ -1,0 +1,13 @@
+# 実データにロード時刻が存在する場合の参考例。教材の既定sourceには組み込んでいません。
+version: 2
+sources:
+  - name: production_raw
+    database: YOUR_PROJECT_ID
+    schema: YOUR_RAW_DATASET
+    tables:
+      - name: orders
+        config:
+          loaded_at_field: _loaded_at
+          freshness:
+            warn_after: {count: 2, period: hour}
+            error_after: {count: 6, period: hour}

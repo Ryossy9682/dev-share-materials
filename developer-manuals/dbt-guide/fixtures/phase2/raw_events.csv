@@ -1,0 +1,5 @@
+event_id,order_id,event_type,event_at
+e1,1,payment,2026-10-01 09:00:00+00:00
+e2,2,payment,2026-10-01 10:00:00+00:00
+e3,4,payment,2026-10-02 10:00:00+00:00
+e4,3,payment,2026-10-04 10:00:00+00:00

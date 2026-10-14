@@ -1,0 +1,5 @@
+project_id              = "YOUR_PROJECT_ID"
+region                  = "asia-northeast1"
+service_name            = "tf-hello-minimal"
+image                   = "asia-northeast1-docker.pkg.dev/YOUR_PROJECT_ID/apps/hello@sha256:YOUR_DIGEST"
+runtime_service_account = "hello-runtime@YOUR_PROJECT_ID.iam.gserviceaccount.com"

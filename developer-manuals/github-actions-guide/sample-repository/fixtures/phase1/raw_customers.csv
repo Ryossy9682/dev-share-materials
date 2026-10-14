@@ -1,0 +1,5 @@
+customer_id,customer_name,segment,updated_at
+101,Aoi,standard,2026-10-01 00:00:00+00:00
+102,Ren,standard,2026-10-01 00:00:00+00:00
+103,Mika,enterprise,2026-10-01 00:00:00+00:00
+104,Yui,standard,2026-10-01 00:00:00+00:00

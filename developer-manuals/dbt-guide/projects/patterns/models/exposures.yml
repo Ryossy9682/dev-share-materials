@@ -1,0 +1,10 @@
+version: 2
+exposures:
+  - name: sample_sales_dashboard
+    type: dashboard
+    maturity: low
+    description: "架空のBI利用先を示す依存情報。ダッシュボード本体は作成しません。"
+    depends_on: [ref('mart_sales_daily')]
+    owner:
+      name: Demo Analytics Team
+      email: demo@example.com

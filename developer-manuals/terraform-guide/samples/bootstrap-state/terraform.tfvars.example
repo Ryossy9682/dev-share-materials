@@ -1,0 +1,2 @@
+project_id = "YOUR_PROJECT_ID"
+bucket_name = "YOUR_GLOBALLY_UNIQUE_STATE_BUCKET"

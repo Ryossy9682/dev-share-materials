@@ -1,0 +1,12 @@
+.gcloudignore
+.git/
+.venv/
+__pycache__/
+.env
+.env.*
+scripts/
+tests/
+results/
+README.md
+deploy.config*.json
+cost-comparison.template.csv

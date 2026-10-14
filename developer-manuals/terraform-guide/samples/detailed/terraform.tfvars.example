@@ -1,0 +1,26 @@
+project_id         = "YOUR_PROJECT_ID"
+region             = "asia-northeast1"
+service_name       = "tf-hello-detailed"
+runtime_account_id = "tf-hello-runtime"
+image              = "asia-northeast1-docker.pkg.dev/YOUR_PROJECT_ID/apps/hello@sha256:YOUR_DIGEST"
+environment        = "dev"
+cpu                = "1"
+memory             = "512Mi"
+concurrency        = 8
+min_instances      = 0
+max_instances      = 3
+timeout_seconds    = 60
+startup_cpu_boost  = false
+deletion_protection = true
+ingress            = "INGRESS_TRAFFIC_ALL"
+invoker_members    = ["user:YOUR_EMAIL"]
+env                = { LOG_LEVEL = "INFO" }
+secret_env         = {}
+vpc                = null
+enable_alert       = false
+notification_channels = []
+# 必要になったときだけ、既存のSecretやVPC、通知チャネルを指定します。
+# secret_env = { API_TOKEN = { secret_id = "existing-api-token", version = "1" } }
+# vpc = { network = "default", subnetwork = "default", egress = "PRIVATE_RANGES_ONLY" }
+# enable_alert = true
+# notification_channels = ["projects/YOUR_PROJECT_ID/notificationChannels/CHANNEL_ID"]

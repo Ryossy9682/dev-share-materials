@@ -1,0 +1,308 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GitHub Actions CI/CD MIN・MAX設定マニュアル</title><style>
+:root{--ink:#172a3a;--blue:#176b87;--muted:#526775;--line:#d2dfe5}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f3f6f8;color:var(--ink);font:16px/1.85 system-ui,-apple-system,"Yu Gothic",Meiryo,sans-serif}header{background:#142f40;color:white;padding:25px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}header p{margin:0;color:#bfdae5;font-size:13px}h1{font-size:24px;margin:0}button{font:inherit;cursor:pointer;border:1px solid #aec5cf;border-radius:6px;padding:7px 12px;background:white;color:var(--ink)}.layout{display:grid;grid-template-columns:285px minmax(0,1fr);max-width:1400px;margin:auto}nav{position:sticky;top:0;height:100vh;overflow:auto;padding:22px 15px;font-size:13px}nav a{display:flex;gap:9px;text-decoration:none;color:var(--ink);padding:9px;border-radius:5px}nav a:hover,nav a.active{background:#dbeaf0;color:var(--blue)}nav span{color:var(--blue);min-width:21px}main{min-width:0;padding:30px}.chapter{background:white;padding:42px;border:1px solid var(--line);border-radius:10px;margin:0 0 25px;scroll-margin-top:20px}.eyebrow{font-size:12px;letter-spacing:1.4px;color:var(--blue)}h2{font-size:26px;line-height:1.5;margin:10px 0 15px}h3{font-size:19px;color:var(--blue);margin-top:30px}.lead{color:var(--muted)}p{margin:14px 0}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}td,th{border:1px solid var(--line);padding:12px;text-align:left;vertical-align:top}th{background:#edf5f8}td:first-child{width:30%}.code{position:relative;background:#f0f3f5;border:1px solid #dce4e8;border-radius:7px;margin:18px 0}.copy{position:absolute;right:8px;top:8px;font-size:12px;padding:2px 7px}pre{overflow:auto;margin:0;padding:40px 18px 18px;font:13px/1.75 Consolas,monospace}figure{margin:22px 0;overflow:auto}svg{display:block;width:100%;min-width:440px;font-family:system-ui,"Yu Gothic",Meiryo,sans-serif}a{color:var(--blue);overflow-wrap:anywhere}.source{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}.sample-note{background:#e3eff4;padding:18px;border-left:4px solid var(--blue);margin-bottom:24px;font-size:14px}footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}@media(max-width:850px){header{padding:18px;align-items:flex-start}h1{font-size:20px}.layout{display:block}nav{position:static;height:auto;max-height:230px;border-bottom:1px solid var(--line)}main{padding:14px}.chapter{padding:22px}h2{font-size:23px}}@media print{@page{size:A4;margin:15mm}header{color:var(--ink);background:white;padding:0 0 15px}header button,nav,.copy,.sample-note{display:none}.layout{display:block}body{font-size:10pt;background:white}main{padding:0}.chapter{padding:0;border:0;border-radius:0;break-before:page}.chapter{line-height:1.6}.chapter:first-of-type{break-before:auto}td,th{padding:7px}h3{margin-top:18px}p{margin:9px 0}.source{break-inside:avoid}h2{font-size:18pt}h3{font-size:13pt}p{orphans:3;widows:3}table{font-size:9pt}tr,figure,pre{break-inside:avoid}svg{min-width:0}pre{white-space:pre-wrap;font-size:8pt;padding:10px}.source{font-size:8pt}footer{display:none}}
+details{margin:18px 0;border:1px solid #d2dfe5;border-radius:7px;padding:12px}summary{cursor:pointer;color:#176b87;font-weight:600}.note{padding:15px;border-left:4px solid #176b87;background:#edf5f8}.badge{background:#e3eef4;padding:4px 8px;border-radius:4px}svg text{font-size:13px}figcaption{font-size:13px;color:#526775} .case{border:1px solid #cbdce5;border-left:5px solid #176b87;border-radius:7px;padding:20px;margin:22px 0}.case h3{margin:0 0 10px}.case small{color:#526775}.pill{display:inline-block;background:#e6f0f4;color:#176b87;padding:2px 8px;border-radius:4px;font-size:12px}.files{font-family:Consolas,monospace;font-size:13px;overflow-wrap:anywhere}@media print{details[open]{break-inside:auto}.case{break-inside:auto;padding:10px}}</style></head><body><header><div><p>DEVELOPER MANUAL 04</p><h1>GitHub Actions CI/CD 開発マニュアル</h1><p>MIN・MAX設定 / dbt × BigQuery / 14章 / 2026-10-14</p></div><button onclick="window.print()">印刷・PDF保存</button></header><div class="layout"><nav aria-label="章の一覧"><a href="#chapter-1"><span>01</span>MINとMAX：どこまで自動化するか</a><a href="#chapter-2"><span>02</span>CIとCDの基本構成</a><a href="#chapter-3"><span>03</span>MINケース：最小の実用CI/CD</a><a href="#chapter-4"><span>04</span>MAXケース：品質と運用を追加する</a><a href="#chapter-5"><span>05</span>図解：PRとクラウドの権限境界</a><a href="#chapter-6"><span>06</span>導入手順とファイル構成</a><a href="#chapter-7"><span>07</span>GitHub側で必要な設定</a><a href="#chapter-8"><span>08</span>Google Cloud認証とIAM</a><a href="#chapter-9"><span>09</span>BigQueryで何を検証するか</a><a href="#chapter-10"><span>10</span>本番の直列化・失敗・復旧</a><a href="#chapter-11"><span>11</span>費用対効果と実行速度</a><a href="#chapter-12"><span>12</span>さらに拡張できるケース</a><a href="#chapter-13"><span>13</span>GitHubの上限とMAXの違い</a><a href="#chapter-14"><span>14</span>検証結果・前提・公式リファレンス</a></nav><main><div class="sample-note">最小構成と充実構成のworkflow全文・図解・導入手順。サンプルZIPに2種類のYAMLとdbtプロジェクトを同梱しています。</div><section class="chapter" id="chapter-1"><div class="eyebrow">CHAPTER 01</div><h2>MINとMAX：どこまで自動化するか</h2><p class="lead">GitHub Actionsは、コードの検証、ビルド、クラウドへの反映、定期実行、結果保存を一つのワークフローにできます。この資料では、前のdbt教材を使って、最小実用構成と、品質・権限・証跡・運用を厚くした構成を比較します。</p><p>MIN／MAXはGitHubの公式プラン名ではありません。MAXは、本教材の目的に合わせた充実構成です。全機能を同時に有効化することや、サービス上限まで並列実行することを意味しません。</p><div class="table-wrap"><table><tr><th>観点</th><th>MIN：小さく始める</th><th>MAX：本番運用を厚くする</th></tr><tr><td>CI</td><td>Python 3.12／parse／ローカル検算</td><td>3.11・3.12のmatrix／同じ検算／固定ゲート</td></tr><tr><td>CD</td><td>mainから手動で本番dbt build</td><td>同一runのBigQuery検証→証跡照合→本番build</td></tr><tr><td>認証</td><td>CDジョブのみOIDC</td><td>staging・productionのIDと権限を分離</td></tr><tr><td>品質</td><td>SQLの構文と7事例のローカル検算</td><td>実際の更新・物理削除・再実行を隔離環境で照合</td></tr><tr><td>運用</td><td>短いtimeout／本番同時実行を制限</td><td>CIキャンセル／pip cache／artifact／定期検証／Dependabot</td></tr><tr><td>費用</td><td>PRはクラウドを使わない</td><td>main統合検証でBigQuery料金が発生</td></tr><tr><td>向く状況</td><td>学習・小規模・構成を理解したい</td><td>複数人開発・変更頻度が高い・監査証跡が必要</td></tr></table></div><p class="note">「最小」は安全性を削ることではありません。MINでもActionのSHA固定、read権限、OIDC、本番の実行条件、timeoutを入れています。導入するのはMINかMAXのどちらか一つです。</p></section><section class="chapter" id="chapter-2"><div class="eyebrow">CHAPTER 02</div><h2>CIとCDの基本構成</h2><p>CIは変更の検証、CDは検証済み変更を対象環境へ反映する段階です。サンプルは本番実行を手動にするContinuous Deliveryです。mainへのpushだけで本番まで自動反映するContinuous Deploymentへ変更する場合は、監視と復旧条件も設計します。</p><figure><svg viewBox="0 0 760 400" role="img" aria-label="MINはCIから本番の条件確認へ進み、MAXはBigQuery統合検証を追加します。"><defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#176b87"/></marker></defs><line x1="110" y1="75" x2="110" y2="130" stroke="#176b87" stroke-width="2" marker-end="url(#arrow1)"/><line x1="110" y1="195" x2="380" y2="130" stroke="#176b87" stroke-width="2" marker-end="url(#arrow1)"/><line x1="380" y1="195" x2="380" y2="260" stroke="#176b87" stroke-width="2" marker-end="url(#arrow1)"/><line x1="380" y1="325" x2="650" y2="330" stroke="#176b87" stroke-width="2" marker-end="url(#arrow1)"/><rect x="10" y="10" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="110" y="48" text-anchor="middle">PR / main / 手動</text><rect x="10" y="130" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="110" y="168" text-anchor="middle">CI：構文・検算</text><rect x="280" y="130" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="380" y="168" text-anchor="middle">統合検証：MAXのみ</text><rect x="280" y="260" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="380" y="298" text-anchor="middle">本番の実行条件・承認</text><rect x="550" y="330" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="650" y="368" text-anchor="middle">本番build・test</text></svg><figcaption>MINはCIから本番の条件確認へ進み、MAXはBigQuery統合検証を追加します。</figcaption></figure><div class="table-wrap"><table><tr><th>YAML要素</th><th>役割</th><th>サンプルでの設定</th></tr><tr><td>on</td><td>開始イベント</td><td>pull_request／push main／workflow_dispatch</td></tr><tr><td>jobs／steps</td><td>実行単位と手順</td><td>CI・統合検証・本番を分ける</td></tr><tr><td>needs／if</td><td>依存関係と実行条件</td><td>前段成功かつmainの手動実行だけ本番へ</td></tr><tr><td>permissions</td><td>GitHubトークン権限</td><td>contents: read、クラウドジョブだけid-token: write</td></tr><tr><td>environment</td><td>環境単位の変数と保護</td><td>staging／production</td></tr><tr><td>concurrency</td><td>同時実行の制限</td><td>本番は同じgroupを使用</td></tr></table></div></section><section class="chapter" id="chapter-3"><div class="eyebrow">CHAPTER 03</div><h2>MINケース：最小の実用CI/CD</h2><p>PR、mainへのpush、手動実行でCIを開始します。Python 3.12で依存を導入し、dbt parse、7件のCSV検算、3件の実行防止ガード検証を実施します。PRではGoogle Cloud認証を取得しません。</p><p>本番はActions画面のRun workflowでmainを選び、deployをtrueにした時だけ開始します。CI成功後にproduction環境の保護ルールを通り、OIDCでGoogle Cloudへ接続します。本番ではtag:baseのモデルとテストだけを実行し、seedとfull refreshを使いません。</p><p><strong>メリット：</strong>読みやすく、クラウドなしでPR検証でき、導入コストが低いです。<strong>デメリット：</strong>BigQuery固有のSQL・IAM・実際の増分書込はCIで保証できません。依存の推移的解決もMAXほど固定していません。</p><details><summary>MIN workflow全文</summary><div class="code"><button class="copy" type="button">コピー</button><pre><code>name: DBT MIN CI/CD
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: &#x27;Run production dbt build after CI (main only)&#x27;
+        type: boolean
+        default: false
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+env:
+  DBT_SEND_ANONYMOUS_USAGE_STATS: &#x27;false&#x27;
+jobs:
+  ci:
+    name: Offline CI
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: &#x27;3.12&#x27;
+      - name: Install dependencies
+        run: python -m pip install -r requirements-offline.txt
+      - name: Prepare local profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Parse minimal and pattern projects without cloud access
+        run: |
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/minimal --profiles-dir profiles
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/patterns --profiles-dir profiles --vars &#x27;{enable_patterns: true, enable_snapshots: true}&#x27;
+      - name: Verify seven offline cases
+        run: |
+          python scripts/check_demo_offline.py
+          python ci/test_guards.py
+  production:
+    needs: ci
+    if: github.event_name == &#x27;workflow_dispatch&#x27; &amp;&amp; github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; inputs.deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: production
+    concurrency:
+      group: dbt-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_DATASET: ${{ vars.DBT_PROD_DATASET }}
+      DBT_RAW_PROJECT: ${{ vars.DBT_RAW_PROJECT_ID }}
+      DBT_RAW_DATASET: ${{ vars.DBT_RAW_DATASET }}
+      DBT_LOCATION: ${{ vars.BIGQUERY_LOCATION }}
+      WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      RUNTIME_SA: ${{ vars.GCP_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: &#x27;3.12&#x27;
+      - name: Validate production settings
+        run: python ci/preflight.py production
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          project_id: ${{ env.DBT_PROJECT }}
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.RUNTIME_SA }}
+          create_credentials_file: true
+      - name: Prepare profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Build and test production models (no seed or full refresh)
+        run: |
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --select tag:base --exclude resource_type:seed --vars &#x27;{enable_patterns: false, enable_snapshots: false}&#x27;
+      - name: Record deployed revision
+        run: |
+          printf &#x27;### Production build\nRevision: `%s`\n&#x27; &quot;$GITHUB_SHA&quot; &gt;&gt; &quot;$GITHUB_STEP_SUMMARY&quot;</code></pre></div></details></section><section class="chapter" id="chapter-4"><div class="eyebrow">CHAPTER 04</div><h2>MAXケース：品質と運用を追加する</h2><p>CIはPython 3.11／3.12を最大2並列で実行し、一つ失敗しても他方の結果を残します。quality-gateはmatrix全体が成功した時だけ通過する固定名のチェックです。必須ステータスチェックにはこのQuality gateを登録します。</p><p>mainのpush・手動実行・定期実行では、stagingで実際にBigQueryを操作します。runごとに別datasetを作り、初期データ→変更データ→同じ変更データの再実行を検証します。成功証跡を保存し、手動の本番ジョブがコミットSHA・run ID・attemptを照合してから反映します。</p><div class="table-wrap"><table><tr><th>追加機能</th><th>狙い</th><th>代償・判断境界</th></tr><tr><td>matrix</td><td>環境差を検出</td><td>CI時間とrunner利用が増える</td></tr><tr><td>lock・cache</td><td>依存バージョンの再現性／導入時間削減</td><td>lockはLinux用・ハッシュ未固定。更新と再検証が必要</td></tr><tr><td>統合検証</td><td>BigQuery・dbtの実動作を検証</td><td>IAM設定とクラウド料金が必要</td></tr><tr><td>artifact</td><td>manifest・実行結果・同一コミット証跡</td><td>保存料金とデータ露出範囲を管理</td></tr><tr><td>定期検証</td><td>変更がなくても依存や接続の破損を検知</td><td>サンプルは毎日。不要ならschedule削除</td></tr><tr><td>Dependabot</td><td>Action・pip更新をPRでレビュー</td><td>自動マージは含めない</td></tr></table></div><details><summary>MAX workflow全文</summary><div class="code"><button class="copy" type="button">コピー</button><pre><code>name: DBT MAX CI/CD
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: &#x27;15 16 * * *&#x27; # UTC 16:15 = JST 01:15 (scheduled execution is not an SLA)
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: &#x27;Promote tested main revision to production&#x27;
+        type: boolean
+        default: false
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+env:
+  DBT_SEND_ANONYMOUS_USAGE_STATS: &#x27;false&#x27;
+jobs:
+  ci:
+    name: Offline CI Python ${{ matrix.python }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        python: [&#x27;3.11&#x27;, &#x27;3.12&#x27;]
+    concurrency:
+      group: dbt-offline-${{ github.workflow }}-${{ github.ref }}-${{ matrix.python }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements-linux.lock.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-linux.lock.txt
+      - name: Prepare local profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Parse minimal and pattern projects without cloud access
+        run: |
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/minimal --profiles-dir profiles
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/patterns --profiles-dir profiles --vars &#x27;{enable_patterns: true, enable_snapshots: true}&#x27;
+      - name: Verify seven offline cases
+        run: |
+          python scripts/check_demo_offline.py
+          python ci/test_guards.py
+      - name: Upload parse evidence only
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: parse-python-${{ matrix.python }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            projects/minimal/target/manifest.json
+            projects/patterns/target/manifest.json
+          retention-days: 3
+          if-no-files-found: ignore
+  quality-gate:
+    name: Quality gate
+    needs: ci
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    env:
+      CI_RESULT: ${{ needs.ci.result }}
+    steps:
+      - name: Require all matrix cases to succeed
+        run: test &quot;$CI_RESULT&quot; = success
+  integration:
+    needs: quality-gate
+    if: github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; github.event_name != &#x27;pull_request&#x27;
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: staging
+    concurrency:
+      group: dbt-staging
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_DATASET: dbt_ci_${{ github.run_id }}_${{ github.run_attempt }}
+      DBT_RAW_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_RAW_DATASET: dbt_ci_${{ github.run_id }}_${{ github.run_attempt }}
+      DBT_LOCATION: ${{ vars.BIGQUERY_LOCATION }}
+      WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      RUNTIME_SA: ${{ vars.GCP_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: &#x27;3.12&#x27;
+          cache: pip
+          cache-dependency-path: requirements-linux.lock.txt
+      - name: Validate staging settings
+        run: python ci/preflight.py staging
+      - name: Install locked dependencies
+        run: python -m pip install -r requirements-linux.lock.txt
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          project_id: ${{ env.DBT_PROJECT }}
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.RUNTIME_SA }}
+          create_credentials_file: true
+      - name: Create isolated datasets with one-day table expiration
+        run: python ci/staging.py prepare
+      - name: Prepare profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Phase 1 full fixture and initial build
+        run: |
+          dbt --no-send-anonymous-usage-stats seed --project-dir projects/patterns --profiles-dir profiles --full-refresh
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --exclude resource_type:seed --vars &#x27;{enable_patterns: true, enable_snapshots: true}&#x27;
+      - name: Phase 2 update, deletion and repeated execution
+        run: |
+          python ci/staging.py phase2
+          dbt --no-send-anonymous-usage-stats seed --project-dir projects/patterns --profiles-dir profiles --full-refresh
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --exclude resource_type:seed --vars &#x27;{enable_patterns: true, enable_snapshots: true}&#x27;
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --exclude resource_type:seed --vars &#x27;{enable_patterns: true, enable_snapshots: true}&#x27;
+      - name: Check cloud results and write revision evidence
+        run: python ci/staging.py verify
+      - name: Retain evidence and dbt results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: staging-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ci-evidence/evidence.json
+            projects/patterns/target/manifest.json
+            projects/patterns/target/run_results.json
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Clean only the isolated CI datasets
+        if: always()
+        run: python ci/staging.py cleanup
+  production:
+    needs: [quality-gate, integration]
+    if: github.event_name == &#x27;workflow_dispatch&#x27; &amp;&amp; github.ref == &#x27;refs/heads/main&#x27; &amp;&amp; inputs.deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    environment: production
+    concurrency:
+      group: dbt-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_DATASET: ${{ vars.DBT_PROD_DATASET }}
+      DBT_RAW_PROJECT: ${{ vars.DBT_RAW_PROJECT_ID }}
+      DBT_RAW_DATASET: ${{ vars.DBT_RAW_DATASET }}
+      DBT_LOCATION: ${{ vars.BIGQUERY_LOCATION }}
+      WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      RUNTIME_SA: ${{ vars.GCP_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: &#x27;3.12&#x27;
+      - name: Validate production settings
+        run: python ci/preflight.py production
+      - name: Install dependencies
+        run: python -m pip install -r requirements-linux.lock.txt
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: staging-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-evidence/downloaded
+      - name: Ensure staging tested this exact revision
+        run: python ci/check_evidence.py ci-evidence/downloaded
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          project_id: ${{ env.DBT_PROJECT }}
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.RUNTIME_SA }}
+          create_credentials_file: true
+      - name: Prepare profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Build and test production models (no seed or full refresh)
+        run: |
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --select tag:base --exclude resource_type:seed --vars &#x27;{enable_patterns: false, enable_snapshots: false}&#x27;
+      - name: Record deployed revision
+        run: |
+          printf &#x27;### Production build\nRevision: `%s`\n&#x27; &quot;$GITHUB_SHA&quot; &gt;&gt; &quot;$GITHUB_STEP_SUMMARY&quot;
+      - name: Retain production manifest and results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: production-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            projects/patterns/target/manifest.json
+            projects/patterns/target/run_results.json
+          retention-days: 7
+          if-no-files-found: ignore</code></pre></div></details></section><section class="chapter" id="chapter-5"><div class="eyebrow">CHAPTER 05</div><h2>図解：PRとクラウドの権限境界</h2><p>PRコードは変更者が制御します。PRではcontents: readのローカル検証だけを実行し、Google Cloud認証を取得する統合検証はmainへマージされた変更に限定します。mainの保護とワークフロー変更のレビューがこの境界を支えます。</p><figure><svg viewBox="0 0 760 400" role="img" aria-label="PRから本番認証へ直結させず、mainと環境の保護を通します。"><defs><marker id="arrow4" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#176b87"/></marker></defs><line x1="110" y1="75" x2="110" y2="140" stroke="#176b87" stroke-width="2" marker-end="url(#arrow4)"/><line x1="380" y1="75" x2="380" y2="140" stroke="#176b87" stroke-width="2" marker-end="url(#arrow4)"/><line x1="380" y1="75" x2="650" y2="140" stroke="#176b87" stroke-width="2" marker-end="url(#arrow4)"/><line x1="650" y1="205" x2="650" y2="280" stroke="#176b87" stroke-width="2" marker-end="url(#arrow4)"/><rect x="10" y="10" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="110" y="48" text-anchor="middle">PR：変更者のコード</text><rect x="10" y="140" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="110" y="178" text-anchor="middle">CI：クラウド権限なし</text><rect x="280" y="10" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="380" y="48" text-anchor="middle">保護されたmain</text><rect x="280" y="140" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="380" y="178" text-anchor="middle">staging + OIDC</text><rect x="550" y="140" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="650" y="178" text-anchor="middle">production + OIDC</text><rect x="550" y="280" width="200" height="65" rx="8" fill="#edf5f8" stroke="#b9d6e4"/><text x="650" y="318" text-anchor="middle">限定された本番権限</text></svg><figcaption>PRから本番認証へ直結させず、mainと環境の保護を通します。</figcaption></figure><p>pull_request_targetでPRのコードをcheckoutして権限付き実行する構成は採用しません。PRタイトルやブランチ名をrunのシェルに直接埋め込まず、必要ならenv経由で渡して引用します。キャッシュは高速化用であり、デプロイ済み成果物の証明には使いません。</p><p>Actionは40桁のコミットSHAで固定しました。依存更新時はDependabotのPRと差分をレビューします。SHA固定はAction自体の安全性を自動保証するものではありません。</p></section><section class="chapter" id="chapter-6"><div class="eyebrow">CHAPTER 06</div><h2>導入手順とファイル構成</h2><p>ZIPを展開し、sample-repositoryをGitHubリポジトリのルートに置きます。variants/minまたはvariants/maxの.github/workflows/dbt-ci-cd.ymlを、リポジトリの.github/workflowsへコピーします。MAXではdependabot.ymlもコピーします。二つのworkflowを同時に有効にすると、同じモデルが重複実行されるため、必ず一方だけ選びます。</p><div class="code"><button class="copy" type="button">コピー</button><pre><code>github-actions-guide/
+  04-github-actions-ci-cd-guide.html
+  variants/min/.github/workflows/dbt-ci-cd.yml
+  variants/max/.github/workflows/dbt-ci-cd.yml
+  variants/max/.github/dependabot.yml
+  sample-repository/
+    ci/preflight.py / staging.py / check_evidence.py / test_guards.py
+    scripts/check_demo_offline.py
+    projects/minimal/ / projects/patterns/
+    profiles/profiles.yml.example
+    fixtures/phase1/ / fixtures/phase2/
+    requirements.txt / requirements-offline.txt / requirements-linux.lock.txt
+  docs/SETUP.md / VALIDATION.md / action-versions.json</code></pre></div><ol><li>MIN／MAXのどちらかをコピーし、まずPRのクラウドなしCIを通します。</li><li>GitHub Settingsで環境と変数、mainの保護、workflow変更レビューを設定します。</li><li>Google Cloud側でWIF、サービスアカウント、BigQuery IAMを設定します。</li><li>MAXはstagingの統合検証を先に通します。MINは本番相当の検証用環境で手動確認してください。</li><li>本番のrawデータと出力datasetを準備し、mainからdeploy=trueの手動実行を開始します。</li></ol><p class="note">サンプルは前のdbt教材の架空注文スキーマ専用です。既存の任意のdbtプロジェクトを、そのままこの本番コマンドで扱えるわけではありません。実運用ではモデル、テスト、raw sourceを自社の構成へ置き換えます。</p></section><section class="chapter" id="chapter-7"><div class="eyebrow">CHAPTER 07</div><h2>GitHub側で必要な設定</h2><p>YAMLのenvironment: productionだけでは承認を有効にできません。Settings → Environmentsでproductionを事前作成し、必要なレビュアー、自己承認禁止、デプロイ可能ブランチmainを設定します。stagingはmainだけに制限します。</p><p>環境の保護機能はプランと公開／非公開で利用範囲が変わります。利用できない場合、この教材と同じ承認保証は成立しません。組織の利用プランか別の承認経路を確認してください。</p><div class="table-wrap"><table><tr><th>Environment variable</th><th>設定先</th><th>値・目的</th></tr><tr><td>GCP_PROJECT_ID</td><td>staging／production</td><td>BigQueryジョブのproject ID。環境ごとに別project推奨</td></tr><tr><td>BIGQUERY_LOCATION</td><td>両環境</td><td>例：asia-northeast1。rawと出力のlocationを合わせる</td></tr><tr><td>GCP_WIF_PROVIDER</td><td>両環境</td><td>projects/数値/locations/global/workloadIdentityPools/…/providers/…</td></tr><tr><td>GCP_SERVICE_ACCOUNT</td><td>両環境</td><td>環境ごとに専用のSAメール</td></tr><tr><td>DBT_PROD_DATASET</td><td>production</td><td>出力先。例analytics_prod。事前作成</td></tr><tr><td>DBT_RAW_PROJECT_ID</td><td>production</td><td>raw_orders／raw_customers／raw_eventsのproject</td></tr><tr><td>DBT_RAW_DATASET</td><td>production</td><td>raw source dataset。事前ロード</td></tr></table></div><p>mainのRulesetまたはBranch protectionでは、PRを必須にし、MAXのQuality gate（MINはci）を必須チェックにします。実際に一度CIを実行して表示されたチェック名を登録してください。workflow／ciスクリプト／本番モデルの変更には担当者レビューを要求します。</p><div class="code"><button class="copy" type="button">コピー</button><pre><code># CODEOWNERS例：実在するGitHubチームに置き換える
+/.github/ @your-org/platform-team
+/ci/ @your-org/platform-team
+/projects/ @your-org/data-team</code></pre></div><p>CODEOWNERSファイルを置くだけではレビュー必須にはなりません。ブランチ保護のRequire review from Code Ownersも設定します。サンプルのプレースホルダーは自動コピーしません。</p></section><section class="chapter" id="chapter-8"><div class="eyebrow">CHAPTER 08</div><h2>Google Cloud認証とIAM</h2><p>本教材はGoogle Cloudサービスアカウント鍵JSONをGitHubに保存せず、GitHub OIDC → Workload Identity Federation → サービスアカウントの構成です。id-token: writeはOIDCトークン取得用であり、BigQuery権限はGoogle Cloud IAMで別途制御します。</p><div class="table-wrap"><table><tr><th>主体・対象</th><th>権限の考え方</th><th>適用範囲</th></tr><tr><td>GitHubのWIF principal</td><td>対象SAへのroles/iam.workloadIdentityUser</td><td>対象リポジトリ・main・environmentに限定</td></tr><tr><td>production SA</td><td>roles/bigquery.jobUser</td><td>クエリ実行project</td></tr><tr><td>production SA</td><td>roles/bigquery.dataViewer</td><td>raw datasetだけ</td></tr><tr><td>production SA</td><td>roles/bigquery.dataEditor</td><td>出力datasetだけ</td></tr><tr><td>staging SA</td><td>jobUser＋dataset作成・管理に必要な権限</td><td>専用の検証project。dataEditorのproject付与は広いため専用projectへ隔離</td></tr></table></div><p>WIFのattribute mappingとconditionでrepository_id／repository_owner_idなどの不変ID、ref、environmentを制限します。トークンのsub形式にはリポジトリ作成・名称変更時期による差があるため、古いrepo:owner/name:…形式を決め打ちしません。実際のclaimと公式資料で設定します。</p><p>gha-creds-*.jsonは一時認証ファイルです。gitignoreし、artifactや配布ZIPに含めません。stagingとproductionで同じ広い権限のSAを共有しない設計にしてください。</p></section><section class="chapter" id="chapter-9"><div class="eyebrow">CHAPTER 09</div><h2>BigQueryで何を検証するか</h2><p>MAXはrunごとにdbt_ci_RUNID_ATTEMPTとその_snapshots datasetを作ります。dataset名とrun IDの一致をコードで検査し、cleanupが本番datasetへ作用しないようにします。テーブルに24時間の既定有効期限を設定し、最後にdatasetを削除します。</p><div class="table-wrap"><table><tr><th>照合項目</th><th>phase2後の期待値</th><th>示している挙動</th></tr><tr><td>全件martのpaid売上</td><td>349</td><td>修正・キャンセル・物理削除の反映</td></tr><tr><td>MERGEのpaid売上</td><td>469</td><td>通常のupsertでは消えた注文120が残るという既知の制約</td></tr><tr><td>partition置換のpaid売上</td><td>349</td><td>指定日のパーティション再作成</td></tr><tr><td>不変イベント件数</td><td>4</td><td>再実行で件数が増えない</td></tr><tr><td>現在有効な顧客snapshot</td><td>3</td><td>同じ入力の再実行で現行行が増えない</td></tr></table></div><p>469を成功条件にしているのは、教材のMERGE削除問題を再現するためです。本番の正しい売上として容認する意味ではありません。本番用ゲートでは業務上の正しい期待値と削除伝播方式に置き換えてください。</p><p>ローカル7件はDuckDBでSELECT相当を検算するもので、BigQueryの実行・権限・増分materializationを保証しません。BigQuery固有の検証はMAXのintegrationジョブで初めて行われます。</p></section><section class="chapter" id="chapter-10"><div class="eyebrow">CHAPTER 10</div><h2>本番の直列化・失敗・復旧</h2><p>本番とstagingには固定のconcurrency groupとcancel-in-progress: falseを設定します。実行中の本番buildを新しいrunのために中断しません。ただし既定の待機枠では、古いpendingが新しいpendingに置換されることがあり、dispatch順の完全な実行保証ではありません。</p><p>CIにはcancel-in-progress: trueを使い、同じrefの古い検証を中止します。全体workflowのキャンセルにすると本番まで止まり得るため、サンプルではCIジョブ単位にしています。</p><div class="table-wrap"><table><tr><th>失敗地点</th><th>対応</th></tr><tr><td>PR CI</td><td>修正してPRを更新。クラウド作業なし</td></tr><tr><td>integration</td><td>mainの同じコミットで再実行し、BigQuery・dbtログを確認。異なるattemptの証跡は本番に流用しない</td></tr><tr><td>本番dbt build</td><td>run_resultsとBigQueryジョブを調べ、部分反映を確認してから対象モデルを再実行</td></tr><tr><td>cleanup</td><td>専用検証projectで残存datasetを監視し、管理者が確認して削除</td></tr></table></div><p class="note">dbt build全体は一つのトランザクションではありません。後半のテスト失敗でも前半のテーブル更新が残ることがあります。Gitの旧コミットへ戻すだけではデータは戻りません。停止、影響確認、旧SQL再buildまたはバックアップ復元の手順を別途整備します。自動ロールバックは本サンプルに含みません。</p><p>always()でも強制終了時にはcleanupが動かない場合があります。24時間TTLはテーブル用で、dataset自体の自動削除ではありません。runnerの中断が既に開始されたクラウドジョブを必ず停止する保証もありません。</p></section><section class="chapter" id="chapter-11"><div class="eyebrow">CHAPTER 11</div><h2>費用対効果と実行速度</h2><p>最適化の順序は、不要なrunを減らす、必要な対象だけを検証する、再利用できる導入結果をcacheする、適切な並列度を選ぶ、最後にrunnerを増強する、です。MINはPRでBigQueryを使わず、MAXの統合検証もmainに限定しています。</p><div class="table-wrap"><table><tr><th>設定</th><th>効果</th><th>注意点</th></tr><tr><td>max-parallel: 2</td><td>matrixの並列度を抑える</td><td>並列化は待ち時間を短縮しても総利用分を減らすとは限らない</td></tr><tr><td>timeout-minutes</td><td>異常な長時間実行を制限</td><td>正常runの計測後に調整</td></tr><tr><td>pip cache</td><td>依存download時間を短縮</td><td>キーをlockファイルに連動。認証情報を保存しない</td></tr><tr><td>artifact保存3日／7日</td><td>証跡を必要期間だけ保存</td><td>組織の監査要件に合わせる</td></tr><tr><td>BigQuery最大読取1GB／クエリ</td><td>過大なクエリを失敗させる</td><td>1run全体の総額上限ではない。クエリ数・slot・別サービスも考慮</td></tr><tr><td>日次schedule</td><td>継続的な接続検証</td><td>JST01:15相当。遅延やスキップがあり、厳密な時刻保証ではない</td></tr></table></div><p>サンプルではpathsフィルターを入れていません。必須チェックを付けたworkflow自体をpaths条件で開始しないと、チェックがpendingのままになる場合があるためです。大規模monorepoでは、常に起動する判定ジョブと必須ゲートを残し、必要な検証ジョブだけを条件分岐します。</p><p>概算は、runnerのジョブ利用量＋artifact/cacheの保存利用量＋BigQueryの実行量です。具体的単価と無料枠はプラン・runner・課金方式で変わるため、固定価格例を保証せず、実際のBillingとクエリ統計で測定します。</p></section><section class="chapter" id="chapter-12"><div class="eyebrow">CHAPTER 12</div><h2>さらに拡張できるケース</h2><p>以下はGitHub Actionsで追加できる設計例です。今回のMAX YAMLに全て実装済みという意味ではありません。</p><div class="table-wrap"><table><tr><th>対象</th><th>MINの例</th><th>さらに拡張した構成例</th><th>メリット／デメリット</th></tr><tr><td>アプリ／Cloud Run</td><td>単体test→build→手動deploy</td><td>脆弱性検査→署名・provenance→staging E2E→段階配信→SLO監視→復旧</td><td>検出・復旧力が高い／監視基盤と運用が増える</td></tr><tr><td>Terraform</td><td>fmt・validate→plan→承認apply</td><td>環境別plan／policy検査／ドリフト定期検知／保存plan照合／stateロック</td><td>変更レビューが明確／stateと権限の分離が必要</td></tr><tr><td>dbt</td><td>parse・test→手動build</td><td>変更モデル＋依存モデルのSlim CI／defer／source freshness／差分照合</td><td>対象を絞り高速化／基準manifestと状態の管理が必要</td></tr><tr><td>複数リポジトリ</td><td>各repoにworkflow</td><td>workflow_callで共通化／組織ポリシー／一括依存更新</td><td>保守が揃う／共通変更の影響が大きい</td></tr><tr><td>監査が必要</td><td>短期artifact</td><td>長期保管／外部監査ログ／承認分離／成果物attestation</td><td>追跡が容易／保管料と機微情報管理が必要</td></tr></table></div><p>Terraformではレビューしたplanとapply対象を一致させ、planに含まれる機微情報のアクセスを制限します。Cloud Runでは同じimage digestをstagingから本番へ昇格させます。dbtではコードが同じでも入力データが変化するため、artifactの同一性だけで本番結果を保証できません。</p></section><section class="chapter" id="chapter-13"><div class="eyebrow">CHAPTER 13</div><h2>GitHubの上限とMAXの違い</h2><p>利用上限はGitHubプランとrunner種別で変わります。現在の公式資料では、matrixで生成できるジョブは1workflowあたり最大256、GitHub hostedの1ジョブ実行時間は最大6時間です。これはサービス上限であり、推奨設定値ではありません。本教材は2並列・短いtimeoutに抑えています。</p><p>予算・利用枠・保存容量・API制限・クラウド側quotaも別々に存在します。self-hosted runnerを使う場合は、運用、更新、ネットワーク隔離、PRからの侵害、残留ファイルを扱う責任が増えます。サンプルはGitHub hosted Ubuntu 24.04です。</p></section><section class="chapter" id="chapter-14"><div class="eyebrow">CHAPTER 14</div><h2>検証結果・前提・公式リファレンス</h2><p>作成時にMINとMAXのworkflowをactionlint v1.7.12で検査し、構文エラーなしを確認しました。Python 3.12環境でdbt parse、7件のローカル検算、3件のガード検証を通しています。ActionのタグとコミットSHAの対応は配布内docs/action-versions.jsonに記録しました。</p><p>GitHub上のworkflow実行、Python 3.11 matrix、Google Cloudへの接続、BigQuery統合検証、本番デプロイは未実施です。利用先リポジトリ・IAM・データを設定して初回runで確認してください。全依存の版固定はLinux検証環境から作ったもので、依存配布物のhash lockは含みません。</p><ul><li><a href="https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax" target="_blank" rel="noopener">Workflow syntax</a></li><li><a href="https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments" target="_blank" rel="noopener">Environmentsと承認・利用プラン</a></li><li><a href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency" target="_blank" rel="noopener">Concurrency</a></li><li><a href="https://docs.github.com/en/actions/reference/limits" target="_blank" rel="noopener">Actions limits</a></li><li><a href="https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-google-cloud-platform" target="_blank" rel="noopener">OIDCとGoogle Cloud</a></li><li><a href="https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines" target="_blank" rel="noopener">Google Cloud WIF</a></li><li><a href="https://github.com/google-github-actions/auth" target="_blank" rel="noopener">Google auth Action</a></li><li><a href="https://docs.github.com/en/actions/reference/security/secure-use" target="_blank" rel="noopener">Secure use</a></li><li><a href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/run-job-variations" target="_blank" rel="noopener">Matrix</a></li><li><a href="https://docs.github.com/en/actions/tutorials/store-and-share-data" target="_blank" rel="noopener">Artifacts</a></li><li><a href="https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference" target="_blank" rel="noopener">Dependabot</a></li><li><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches" target="_blank" rel="noopener">Branch protection</a></li><li><a href="https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows" target="_blank" rel="noopener">Trigger events</a></li></ul><p class="source">確認日：2026-10-14。構成例・期待値・運用判断は本教材で設計したサンプルです。</p></section></main></div><footer>Developer Manual 04 · GitHub Actions · MIN / MAX</footer><script>document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(b.parentNode.querySelector('code').textContent);b.textContent='コピー済み';setTimeout(()=>b.textContent='コピー',1800)}catch(e){b.textContent='選択してコピーしてください'}}));window.addEventListener('beforeprint',()=>document.querySelectorAll('details').forEach(d=>{d.dataset.wasOpen=d.open;d.open=true}));window.addEventListener('afterprint',()=>document.querySelectorAll('details').forEach(d=>d.open=d.dataset.wasOpen==='true'));</script></body></html>

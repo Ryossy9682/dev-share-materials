@@ -1,0 +1,10 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+backend.*.hcl
+crash.log
+.env
+.env.*
+# .terraform.lock.hclはコミット対象。exampleファイルは保持します。

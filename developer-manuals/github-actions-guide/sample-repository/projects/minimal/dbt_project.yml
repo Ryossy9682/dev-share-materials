@@ -1,0 +1,21 @@
+name: dbt_learning
+version: '1.0.0'
+config-version: 2
+profile: dbt_learning_minimal
+require-dbt-version: [">=1.10.5", "<1.11.0"]
+model-paths: [models]
+seed-paths: [seeds]
+models:
+  dbt_learning:
+    +materialized: table
+seeds:
+  dbt_learning:
+    raw_orders:
+      +column_types:
+        order_id: INT64
+        customer_id: INT64
+        order_date: DATE
+        amount: NUMERIC
+        discount_rate: NUMERIC
+        status: STRING
+        updated_at: TIMESTAMP

@@ -1,0 +1,26 @@
+dbt_learning_minimal:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('DBT_PROJECT', 'sample-project') }}"
+      dataset: "{{ env_var('DBT_DATASET', 'dbt_demo_minimal') }}"
+      location: "{{ env_var('DBT_LOCATION', 'asia-northeast1') }}"
+      threads: 2
+      priority: interactive
+      job_execution_timeout_seconds: 300
+      maximum_bytes_billed: 1000000000
+dbt_learning_patterns:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('DBT_PROJECT', 'sample-project') }}"
+      dataset: "{{ env_var('DBT_DATASET', 'dbt_demo_patterns') }}"
+      location: "{{ env_var('DBT_LOCATION', 'asia-northeast1') }}"
+      threads: 2
+      priority: interactive
+      job_execution_timeout_seconds: 300
+      maximum_bytes_billed: 1000000000

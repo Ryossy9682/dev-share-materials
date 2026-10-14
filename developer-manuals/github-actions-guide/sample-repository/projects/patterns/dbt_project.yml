@@ -1,0 +1,57 @@
+name: dbt_learning
+version: '1.0.0'
+config-version: 2
+profile: dbt_learning_patterns
+require-dbt-version: [">=1.10.5", "<1.11.0"]
+model-paths: [models]
+seed-paths: [seeds]
+snapshot-paths: [snapshots]
+macro-paths: [macros]
+test-paths: [tests]
+analysis-paths: [analyses]
+vars:
+  enable_patterns: false
+  enable_snapshots: false
+  merge_lookback_days: 3
+  rebuild_dates: ['2026-10-01', '2026-10-02', '2026-10-03']
+models:
+  dbt_learning:
+    staging:
+      +materialized: view
+      +tags: [base]
+    intermediate:
+      +materialized: ephemeral
+      +tags: [base]
+    marts:
+      +materialized: table
+      +tags: [base]
+    patterns:
+      +enabled: "{{ var('enable_patterns', false) }}"
+      +tags: [patterns]
+snapshots:
+  dbt_learning:
+    +enabled: "{{ var('enable_snapshots', false) }}"
+    +schema: snapshots
+seeds:
+  dbt_learning:
+    raw_orders:
+      +column_types:
+        order_id: INT64
+        customer_id: INT64
+        order_date: DATE
+        amount: NUMERIC
+        discount_rate: NUMERIC
+        status: STRING
+        updated_at: TIMESTAMP
+    raw_customers:
+      +column_types:
+        customer_id: INT64
+        customer_name: STRING
+        segment: STRING
+        updated_at: TIMESTAMP
+    raw_events:
+      +column_types:
+        event_id: STRING
+        order_id: INT64
+        event_type: STRING
+        event_at: TIMESTAMP

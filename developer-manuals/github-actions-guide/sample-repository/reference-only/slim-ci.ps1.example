@@ -1,0 +1,8 @@
+# 参考例です。実際のCI接続・認証・成果物取得は実装していません。
+# 本番のmanifest.jsonを、今回のtargetとは別ディレクトリへ取得しておきます。
+$env:DBT_DATASET = 'dbt_pr_123'
+.\.venv\Scripts\dbt.exe build --project-dir projects/patterns --profiles-dir profiles `
+  --select 'state:modified+' --defer --state artifacts/prod `
+  --vars '{enable_patterns: true, enable_snapshots: true}'
+# deferは未選択モデルを本番へ参照させる場合があります。
+# この選択だけでは既存Incrementalの2回目の挙動を自動で再現しません。

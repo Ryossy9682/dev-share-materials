@@ -1,0 +1,54 @@
+version: 2
+models:
+  - name: stg_orders
+    description: "order_id粒度。paidだけをMartの売上へ含めます。"
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['paid', 'pending', 'cancelled']
+      - name: net_amount
+        data_tests: [not_null]
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        data_tests: [not_null, unique]
+  - name: mart_sales_daily
+    description: "order_date粒度の日次売上。契約で列名と型を固定します。"
+    columns:
+      - name: order_date
+        data_type: date
+        data_tests: [not_null, unique]
+      - name: paid_order_count
+        data_type: int64
+        data_tests: [not_null]
+      - name: net_revenue
+        data_type: numeric
+        data_tests: [not_null]
+seeds:
+  - name: status_labels
+    columns:
+      - name: status
+        data_tests: [not_null, unique]
+unit_tests:
+  - name: normalize_status_and_calculate_net_amount
+    model: stg_orders
+    given:
+      - input: source('demo_raw', 'raw_orders')
+        rows:
+          - {order_id: 1, customer_id: 101, order_date: '2026-10-01', amount: 100, discount_rate: 0.1, status: ' PAID ', updated_at: '2026-10-01 09:00:00+00:00'}
+          - {order_id: 2, customer_id: 102, order_date: '2026-10-01', amount: 50, discount_rate: 0, status: pending, updated_at: '2026-10-01 09:00:00+00:00'}
+    expect:
+      rows:
+        - {order_id: 1, status: paid, net_amount: 90}
+        - {order_id: 2, status: pending, net_amount: 50}

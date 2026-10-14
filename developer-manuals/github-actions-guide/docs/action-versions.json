@@ -1,0 +1,26 @@
+{
+  "actions/checkout": {
+    "tag": "v7.0.1",
+    "sha": "3d3c42e5aac5ba805825da76410c181273ba90b1"
+  },
+  "actions/setup-python": {
+    "tag": "v7.0.0",
+    "sha": "5fda3b95a4ea91299a34e894583c3862153e4b97"
+  },
+  "actions/upload-artifact": {
+    "tag": "v7.0.2",
+    "sha": "cf430e030ddbb5b0abf93d22962f4752f3646cd9"
+  },
+  "actions/download-artifact": {
+    "tag": "v8.0.2",
+    "sha": "9000827ccba6bdab643e8b6fd33ac0654aef8333"
+  },
+  "google-github-actions/auth": {
+    "tag": "v3",
+    "sha": "7c6bc770dae815cd3e89ee6cdf493a5fab2cc093"
+  },
+  "google-github-actions/setup-gcloud": {
+    "tag": "v3.0.1",
+    "sha": "aa5489c8933f4cc7a4f7d45035b3b1440c9c10db"
+  }
+}

@@ -1,0 +1,87 @@
+name: DBT MIN CI/CD
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Run production dbt build after CI (main only)'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+env:
+  DBT_SEND_ANONYMOUS_USAGE_STATS: 'false'
+jobs:
+  ci:
+    name: Offline CI
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-offline.txt
+      - name: Prepare local profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Parse minimal and pattern projects without cloud access
+        run: |
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/minimal --profiles-dir profiles
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/patterns --profiles-dir profiles --vars '{enable_patterns: true, enable_snapshots: true}'
+      - name: Verify seven offline cases
+        run: |
+          python scripts/check_demo_offline.py
+          python ci/test_guards.py
+  production:
+    needs: ci
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: production
+    concurrency:
+      group: dbt-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_DATASET: ${{ vars.DBT_PROD_DATASET }}
+      DBT_RAW_PROJECT: ${{ vars.DBT_RAW_PROJECT_ID }}
+      DBT_RAW_DATASET: ${{ vars.DBT_RAW_DATASET }}
+      DBT_LOCATION: ${{ vars.BIGQUERY_LOCATION }}
+      WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      RUNTIME_SA: ${{ vars.GCP_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Validate production settings
+        run: python ci/preflight.py production
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          project_id: ${{ env.DBT_PROJECT }}
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.RUNTIME_SA }}
+          create_credentials_file: true
+      - name: Prepare profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Build and test production models (no seed or full refresh)
+        run: |
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --select tag:base --exclude resource_type:seed --vars '{enable_patterns: false, enable_snapshots: false}'
+      - name: Record deployed revision
+        run: |
+          printf '### Production build\nRevision: `%s`\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"

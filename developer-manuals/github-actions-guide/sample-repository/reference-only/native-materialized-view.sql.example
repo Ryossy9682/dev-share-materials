@@ -1,0 +1,7 @@
+-- BigQueryネイティブDDLの参考例。dbt buildの対象ではありません。
+-- 機能・SQL制約・dbt adapter対応を確認して、管理主体を決めます。
+create materialized view `YOUR_PROJECT_ID.YOUR_DATASET.mv_paid_sales_daily` as
+select order_date, sum(net_amount) as net_revenue
+from `YOUR_PROJECT_ID.YOUR_DATASET.p03_orders_enriched_table`
+where status = 'paid'
+group by order_date;

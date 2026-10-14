@@ -1,0 +1,2 @@
+bucket = "YOUR_GLOBALLY_UNIQUE_STATE_BUCKET"
+prefix = "terraform/cloud-run/detailed/dev"

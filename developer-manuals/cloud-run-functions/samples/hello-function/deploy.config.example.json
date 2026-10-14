@@ -1,0 +1,12 @@
+{
+  "projectId": "YOUR_PROJECT_ID",
+  "region": "asia-northeast1",
+  "serviceName": "hello-function",
+  "runtimeServiceAccount": "hello-runtime@YOUR_PROJECT_ID.iam.gserviceaccount.com",
+  "cpu": "1",
+  "memory": "512Mi",
+  "concurrency": 1,
+  "minInstances": 0,
+  "maxInstances": 2,
+  "timeoutSeconds": 60
+}

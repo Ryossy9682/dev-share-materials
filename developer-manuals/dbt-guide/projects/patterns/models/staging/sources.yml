@@ -1,0 +1,21 @@
+version: 2
+sources:
+  - name: demo_raw
+    description: "本番では外部ロード済みのテーブル。教材では事前のdbt seedで作成します。"
+    database: "{{ target.database }}"
+    schema: "{{ target.schema }}"
+    tables:
+      - name: raw_orders
+        columns:
+          - name: order_id
+            data_tests: [not_null, unique]
+          - name: customer_id
+            data_tests: [not_null]
+      - name: raw_customers
+        columns:
+          - name: customer_id
+            data_tests: [not_null, unique]
+      - name: raw_events
+        columns:
+          - name: event_id
+            data_tests: [not_null, unique]

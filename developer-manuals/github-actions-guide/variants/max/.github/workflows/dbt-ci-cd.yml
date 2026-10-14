@@ -1,0 +1,205 @@
+name: DBT MAX CI/CD
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '15 16 * * *' # UTC 16:15 = JST 01:15 (scheduled execution is not an SLA)
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Promote tested main revision to production'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+env:
+  DBT_SEND_ANONYMOUS_USAGE_STATS: 'false'
+jobs:
+  ci:
+    name: Offline CI Python ${{ matrix.python }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        python: ['3.11', '3.12']
+    concurrency:
+      group: dbt-offline-${{ github.workflow }}-${{ github.ref }}-${{ matrix.python }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements-linux.lock.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-linux.lock.txt
+      - name: Prepare local profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Parse minimal and pattern projects without cloud access
+        run: |
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/minimal --profiles-dir profiles
+          dbt --no-send-anonymous-usage-stats --no-partial-parse parse --project-dir projects/patterns --profiles-dir profiles --vars '{enable_patterns: true, enable_snapshots: true}'
+      - name: Verify seven offline cases
+        run: |
+          python scripts/check_demo_offline.py
+          python ci/test_guards.py
+      - name: Upload parse evidence only
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: parse-python-${{ matrix.python }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            projects/minimal/target/manifest.json
+            projects/patterns/target/manifest.json
+          retention-days: 3
+          if-no-files-found: ignore
+  quality-gate:
+    name: Quality gate
+    needs: ci
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    env:
+      CI_RESULT: ${{ needs.ci.result }}
+    steps:
+      - name: Require all matrix cases to succeed
+        run: test "$CI_RESULT" = success
+  integration:
+    needs: quality-gate
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: staging
+    concurrency:
+      group: dbt-staging
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_DATASET: dbt_ci_${{ github.run_id }}_${{ github.run_attempt }}
+      DBT_RAW_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_RAW_DATASET: dbt_ci_${{ github.run_id }}_${{ github.run_attempt }}
+      DBT_LOCATION: ${{ vars.BIGQUERY_LOCATION }}
+      WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      RUNTIME_SA: ${{ vars.GCP_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-linux.lock.txt
+      - name: Validate staging settings
+        run: python ci/preflight.py staging
+      - name: Install locked dependencies
+        run: python -m pip install -r requirements-linux.lock.txt
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          project_id: ${{ env.DBT_PROJECT }}
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.RUNTIME_SA }}
+          create_credentials_file: true
+      - name: Create isolated datasets with one-day table expiration
+        run: python ci/staging.py prepare
+      - name: Prepare profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Phase 1 full fixture and initial build
+        run: |
+          dbt --no-send-anonymous-usage-stats seed --project-dir projects/patterns --profiles-dir profiles --full-refresh
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --exclude resource_type:seed --vars '{enable_patterns: true, enable_snapshots: true}'
+      - name: Phase 2 update, deletion and repeated execution
+        run: |
+          python ci/staging.py phase2
+          dbt --no-send-anonymous-usage-stats seed --project-dir projects/patterns --profiles-dir profiles --full-refresh
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --exclude resource_type:seed --vars '{enable_patterns: true, enable_snapshots: true}'
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --exclude resource_type:seed --vars '{enable_patterns: true, enable_snapshots: true}'
+      - name: Check cloud results and write revision evidence
+        run: python ci/staging.py verify
+      - name: Retain evidence and dbt results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: staging-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ci-evidence/evidence.json
+            projects/patterns/target/manifest.json
+            projects/patterns/target/run_results.json
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Clean only the isolated CI datasets
+        if: always()
+        run: python ci/staging.py cleanup
+  production:
+    needs: [quality-gate, integration]
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    environment: production
+    concurrency:
+      group: dbt-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      DBT_DATASET: ${{ vars.DBT_PROD_DATASET }}
+      DBT_RAW_PROJECT: ${{ vars.DBT_RAW_PROJECT_ID }}
+      DBT_RAW_DATASET: ${{ vars.DBT_RAW_DATASET }}
+      DBT_LOCATION: ${{ vars.BIGQUERY_LOCATION }}
+      WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+      RUNTIME_SA: ${{ vars.GCP_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Validate production settings
+        run: python ci/preflight.py production
+      - name: Install dependencies
+        run: python -m pip install -r requirements-linux.lock.txt
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: staging-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-evidence/downloaded
+      - name: Ensure staging tested this exact revision
+        run: python ci/check_evidence.py ci-evidence/downloaded
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          project_id: ${{ env.DBT_PROJECT }}
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.RUNTIME_SA }}
+          create_credentials_file: true
+      - name: Prepare profile
+        run: cp profiles/profiles.yml.example profiles/profiles.yml
+      - name: Build and test production models (no seed or full refresh)
+        run: |
+          dbt --no-send-anonymous-usage-stats build --project-dir projects/patterns --profiles-dir profiles --select tag:base --exclude resource_type:seed --vars '{enable_patterns: false, enable_snapshots: false}'
+      - name: Record deployed revision
+        run: |
+          printf '### Production build\nRevision: `%s`\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+      - name: Retain production manifest and results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: production-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            projects/patterns/target/manifest.json
+            projects/patterns/target/run_results.json
+          retention-days: 7
+          if-no-files-found: ignore

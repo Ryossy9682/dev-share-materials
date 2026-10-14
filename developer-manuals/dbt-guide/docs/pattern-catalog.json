@@ -1,0 +1,122 @@
+[
+  {
+    "id": "P01",
+    "title": "View中心の構成",
+    "scene": "小さい参照表や、常に最新状態を見たい低頻度レポート。",
+    "file": "projects/patterns/models/patterns/p01_sales_view.sql",
+    "pros": "結果Tableの定期再作成が不要。SQLの定義を共有しやすい。",
+    "cons": "参照のたびに元データの計算が必要。高頻度BI・重い結合では費用と遅延が増えやすい。",
+    "check": "phase2のseed後、Viewは再buildしなくても基礎データの変更を参照できます。SQL定義を変えた場合は再buildが必要です。",
+    "pitfall": "Viewは計算結果のキャッシュではありません。Viewを増やすだけで費用が本数倍になるとも言えず、実際のSQLと処理バイトを確認します。"
+  },
+  {
+    "id": "P02",
+    "title": "小規模な全件Table再作成",
+    "scene": "日次の販売レポート。数千～数万行程度の小さい教材から始める場合。",
+    "file": "projects/minimal/models/mart_sales_daily.sql",
+    "pros": "変更・物理削除を現在の入力から取り込みやすい。単純なSELECTで保守できる。",
+    "cons": "更新のたびに対象全体を再計算する。大量・高頻度では負担が増える。",
+    "check": "phase1は売上680、phase2は349。最終Tableはdbtで再作成するまで変わりません。",
+    "pitfall": "少量ならIncrementalを導入する運用・調査コストの方が大きい場合があります。"
+  },
+  {
+    "id": "P03",
+    "title": "共通の重い結合を中間Tableに保存",
+    "scene": "同じ注文・顧客結合を複数Martや複数BIから利用する。",
+    "file": "projects/patterns/models/patterns/p03_orders_enriched_table.sql",
+    "pros": "結合結果を再利用でき、下流のSQLを小さくできる。",
+    "cons": "保存と更新の費用が追加。中間Tableが古いと下流も古くなる。",
+    "check": "p03_sales_by_segmentとp09_wide_bi_tableが同じ中間結果を参照します。顧客102の変更後に再buildするとpremiumに集計されます。",
+    "pitfall": "1対多Joinで注文が増殖すると集計が水増しされます。キーの一意性を先にテストします。"
+  },
+  {
+    "id": "P04",
+    "title": "不変イベントの追記型Incremental",
+    "scene": "event_idが一意で、既存イベントの更新・削除がないログ。",
+    "file": "projects/patterns/models/patterns/p04_events_incremental.sql",
+    "pros": "新しいIDだけを追加する。再実行の重複を避けやすい。",
+    "cons": "本例のNOT EXISTSは既存対象の読取が増える。既存イベント修正は拾わない。",
+    "check": "phase1の3イベント→phase2の4イベント。同じ入力を再実行すると新規対象SELECTは0件です。",
+    "pitfall": "BigQuery用サンプルはmerge戦略です。他アダプターのappend設定をそのまま持ち込まないでください。入力のuniqueテストも必要です。"
+  },
+  {
+    "id": "P05",
+    "title": "更新時刻＋MERGEによる差分反映",
+    "scene": "注文金額・状態が更新され、信頼できるupdated_atと主キーがある。",
+    "file": "projects/patterns/models/patterns/p05_orders_merge.sql",
+    "pros": "過去キーの修正と再実行に対応できる。更新対象を限定できる。",
+    "cons": "物理削除は残る。lookbackより古い到着は拾えない。宛先MERGEの読取も必要。",
+    "check": "phase2の金額・状態変更は反映しますが、注文6の120が残り、paid合計469になります。現在の正しい349との差分を確認します。",
+    "pitfall": "unique_keyはDB制約の自動保証ではありません。宛先を直近日だけに絞るincremental_predicatesで過去キーが不一致になると、重複を作ることがあります。"
+  },
+  {
+    "id": "P06",
+    "title": "日付単位のinsert_overwrite",
+    "scene": "直近数日の注文・集計が修正され、対象日を全件再構成できる。",
+    "file": "projects/patterns/models/patterns/p06_orders_insert_overwrite.sql",
+    "pros": "対象日に含まれる削除も反映できる。処理範囲を日付で管理しやすい。",
+    "cons": "対象日ごとに全行が必要。選び忘れた過去日は更新されない。",
+    "check": "rebuild_datesの3日を再構成し、phase2のpaid合計は349になります。空のパーティションを消すには置換対象日を明示します。",
+    "pitfall": "変更行だけをSELECTしてpartitionを置き換えると、変更のない正しい行が消えます。"
+  },
+  {
+    "id": "P07",
+    "title": "Snapshotによる顧客履歴（SCD Type 2）",
+    "scene": "顧客セグメントが変更されても、以前の状態を残して分析したい。",
+    "file": "projects/patterns/snapshots/customers.yml",
+    "pros": "dbt_valid_from/toで有効期間を保存できる。更新されたマスターの履歴を追える。",
+    "cons": "継続実行と保存費用が必要。実行の間に起きた全変更は保証できない。",
+    "check": "phase1の後にphase2を観測し、顧客102の旧segmentを閉じ、新segmentを追加。104の削除はhard_deletes=invalidateで旧行を閉じます。",
+    "pitfall": "timestamp戦略はupdated_atが正しく進むことが前提。SnapshotはBigQueryのTable snapshotやバックアップとは別です。"
+  },
+  {
+    "id": "P08",
+    "title": "Seed・Macro・Ephemeralの小さな共通処理",
+    "scene": "少数の状態コード、日本語ラベル、割引計算、軽い1回利用のフィルター。",
+    "file": "projects/patterns/models/patterns/p08_seed_lookup.sql",
+    "pros": "小さい参照表をGitでレビューでき、式をMacroで共有できる。Ephemeralは中間物理Tableを作らない。",
+    "cons": "seed変更にはロードが必要。Macroを多用するとSQLが追いにくい。Ephemeralは単独参照・調査しにくい。",
+    "check": "status_labels.csvとnet_amount.sql、int_paid_orders_ephemeral.sqlも読みます。注文件数が結合で増えないことを確認します。",
+    "pitfall": "seedは大量データの取り込みや機密情報の保存先ではありません。EphemeralのSQLは各下流へ組み込まれ、計算再利用を保証しません。"
+  },
+  {
+    "id": "P09",
+    "title": "BI向けの横持ちTable",
+    "scene": "Looker Studioから複数のdimensionを一緒に使い、参照時のJoinを減らしたい。",
+    "file": "projects/patterns/models/patterns/p09_wide_bi_table.sql",
+    "pros": "利用者がSQLのJoinを書かずに使える。参照クエリの負荷を前処理へ移せる。",
+    "cons": "dimensionの重複保存と更新コスト。履歴・多対多・粒度を誤ると二重集計になる。",
+    "check": "注文ID粒度で入金済み注文を公開します。日次粒度のmart_sales_dailyとは違うので件数の意味も確認します。",
+    "pitfall": "500列を無条件に用意せず、BIの利用列を絞ります。Fact＋Dimensionの構成との比較は読取頻度と保守性で判断します。"
+  },
+  {
+    "id": "P10",
+    "title": "テストと契約による公開品質の担保",
+    "scene": "売上指標を複数部署へ配布し、変更時に壊れた列や計算を検出したい。",
+    "file": "projects/patterns/models/schema.yml",
+    "pros": "キー・型・業務整合・境界のチェックをコード化できる。",
+    "cons": "テストもクエリ費用・実行時間を使う。合格は業務の全意味を保証しない。",
+    "check": "Data tests、Unit test、Contract、tests/assert_sales_total_matches_base.sqlを実行対象として確認します。",
+    "pitfall": "Contractは列名と型、Data testは既存データの条件、Unit testはfixtureに対する処理です。Freshnessは別の観点です。build失敗でも更新済みモデルが残る可能性があります。"
+  },
+  {
+    "id": "P11",
+    "title": "個人・CI環境とstate/defer",
+    "scene": "大きなDAGで、PRごとの検証を本番の未変更モデルと組み合わせたい。",
+    "file": "reference-only/slim-ci.ps1.example",
+    "pros": "全DAGを毎回作る負担を減らせる候補。個人・PRのdatasetを分けられる。",
+    "cons": "本番artifactと参照権限が必要。deferで本番データを読む範囲を管理する必要がある。",
+    "check": "state:modified+、--defer、--stateを読む参考例です。実際のCI接続・認証は同梱していません。",
+    "pitfall": "今回のtargetへ出すmanifestで本番manifestを上書きしないでください。初回作成だけではIncrementalの2回目の挙動を検証できません。"
+  },
+  {
+    "id": "P12",
+    "title": "BigQueryネイティブMaterialized View",
+    "scene": "単純な集計を高頻度に読み、DWHが維持する結果を使いたい。",
+    "file": "reference-only/native-materialized-view.sql.example",
+    "pros": "対応する集計では参照計算を減らせる候補。BigQuery側の自動更新を使える。",
+    "cons": "SQL・更新・ソースの制約、保存・更新費用がある。全クエリの高速化を保証しない。",
+    "check": "ネイティブDDLの参考例です。dbtのmaterialized_view対応はエンジン・アダプター・版で確認します。この教材のdbt buildでは作成しません。",
+    "pitfall": "dbtのTable/Incremental、通常View、DWHのMaterialized Viewを同じ仕組みとして扱わないでください。"
+  }
+]

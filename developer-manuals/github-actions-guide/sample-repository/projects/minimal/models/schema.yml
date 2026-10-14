@@ -1,0 +1,9 @@
+version: 2
+models:
+  - name: mart_sales_daily
+    description: "教材用の日次売上。通貨は架空の単一通貨、返金・税は扱いません。"
+    columns:
+      - name: order_date
+        data_tests: [not_null, unique]
+      - name: net_revenue
+        data_tests: [not_null]

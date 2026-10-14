@@ -1,0 +1,10 @@
+version: 2
+snapshots:
+  - name: snap_customers
+    relation: source('demo_raw', 'raw_customers')
+    config:
+      unique_key: customer_id
+      strategy: timestamp
+      updated_at: updated_at
+      hard_deletes: invalidate
+    description: "観測時点の顧客セグメント履歴。削除を検知したら以前の行を無効化します。"
