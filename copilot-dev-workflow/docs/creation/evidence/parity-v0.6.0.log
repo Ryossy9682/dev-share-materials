@@ -1,0 +1,7 @@
+test_common_specifications_and_operation_bodies_match_baseline (test_parity.ParityTests.test_common_specifications_and_operation_bodies_match_baseline) ... ok
+test_copilot_surface_has_no_gemini_runtime_entrypoints (test_parity.ParityTests.test_copilot_surface_has_no_gemini_runtime_entrypoints) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.006s
+
+OK

@@ -1,0 +1,17 @@
+test_adopt_exact_unmarked_distribution (test_operations.OperationsTests.test_adopt_exact_unmarked_distribution) ... ok
+test_cli_dispatch_and_failures (test_operations.OperationsTests.test_cli_dispatch_and_failures) ... ok
+test_doctor_and_native_gate_missing_host_evidence (test_operations.OperationsTests.test_doctor_and_native_gate_missing_host_evidence) ... ok
+test_evaluation_real_fixture_optin_and_independent_verdict (test_operations.OperationsTests.test_evaluation_real_fixture_optin_and_independent_verdict) ... ok
+test_gate_failure_is_visible_and_observation_expiry_invalidates_status (test_operations.OperationsTests.test_gate_failure_is_visible_and_observation_expiry_invalidates_status) ... ok
+test_guard_uses_real_checks_and_native_cli_reports_host_failure (test_operations.OperationsTests.test_guard_uses_real_checks_and_native_cli_reports_host_failure) ... ok
+test_hooks_formats_readonly_scope_shell_and_approval (test_operations.OperationsTests.test_hooks_formats_readonly_scope_shell_and_approval) ... ok
+test_host_adapter_variants_and_source_rollback_without_gate (test_operations.OperationsTests.test_host_adapter_variants_and_source_rollback_without_gate) ... ok
+test_quality_diff_approval_and_tampering (test_operations.OperationsTests.test_quality_diff_approval_and_tampering) ... ok
+test_source_revision_expiration_repin_and_recovery (test_operations.OperationsTests.test_source_revision_expiration_repin_and_recovery) ... ok
+test_update_partial_failure_rolls_back (test_operations.OperationsTests.test_update_partial_failure_rolls_back) ... ok
+test_update_three_way_conflicts_preservation_and_restore (test_operations.OperationsTests.test_update_three_way_conflicts_preservation_and_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.373s
+
+OK

@@ -1,0 +1,113 @@
+[
+  {
+    "argv": [
+      "python3",
+      "scripts/validate.py"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-1.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "coverage",
+      "run",
+      "--branch",
+      "--source=scripts,.gemini/workflow/runtime",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_unit.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-2.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "coverage",
+      "run",
+      "--append",
+      "--branch",
+      "--source=scripts,.gemini/workflow/runtime",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_runtime*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-3.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "coverage",
+      "report",
+      "--fail-under=100"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-4.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "coverage",
+      "json",
+      "-o",
+      "docs/creation/evidence/coverage-v0.5.0.json"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-5.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_models.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-6.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_integration.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-7.log"
+  },
+  {
+    "argv": [
+      "python3",
+      "-c",
+      "import pathlib,tomllib; [tomllib.loads(p.read_text()) for p in pathlib.Path('.gemini/commands').rglob('*.toml')]; print('TOML PASS')"
+    ],
+    "exit_code": 0,
+    "log": "models-v0.5.0-8.log"
+  }
+]

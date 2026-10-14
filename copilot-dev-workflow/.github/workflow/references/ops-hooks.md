@@ -1,0 +1,17 @@
+# 実行直前のフック
+
+templates/hook-settings.jsonはホスト向け設定例、templates/hook-config.jsonは担当別ポリシー。setup担当は導入先のホストとコマンドを確認して具体化する。既存settingsや他のhookを消さず追加し、信頼設定後CLIを再起動する。
+
+hook-config.jsonのrepo・session_id・roleを実セッションに合わせる。各担当/別セッションに別ファイルを用意し、CDW_CASEとCDW_HOOK_CONFIGをそのセッションの環境変数に設定する。子が別IDの場合は子にも対応設定を適用する。共有設定を実行中に書き換えて担当を切り替えない。
+
+既知の読取ツールのみ許可し、未知ツールは拒否する。初期値のallowed_argvは空。必要なテスト等をargv完全一致で追加し、意味と副作用を人が確認する。シェルの複合式・展開・merge/rebase/reset/push/deployは禁止。テストコマンド自体の内容や別名経由の操作まで保証しないため、ホストの権限・サンドボックスと併用する。
+
+独立レビュー3担当は読取ツールだけを許可する。check/verify/impact/mutateは検証済みのargvを個別登録し、結果を所定証跡へ保存する。通常担当が直接更新できる案件内ファイルはMDのみ。実装・テストの業務ファイル変更は当該工程と要件承認が必要。gateやJSON証跡は親が検証済ランタイムコマンドを使って保存する。JSONを書ける任意シェルを包括許可しない。
+
+Copilot CLIはtoolName/toolArgs、stdoutのpermissionDecision/permissionDecisionReason。不正入力はdeny JSON、exit 0を返す。Copilot CLIのpreToolUse設定を使う。CLIとIDEの互換性を推測しない。
+
+フックは起動・登録・信頼・タイムアウトの影響を受ける。Copilot CLIではフックのタイムアウトが拒否にならないため、これだけを強制境界にしない。マージ禁止はホスト権限とGitHub側の権限で補う。導入試験では許可読取・未知tool・未承認実装・レビュー書込・merge拒否・不正JSONを実ホストで試し、hooks.mdに結果を残す。
+
+設定例を`.github/hooks/cdw-guard.json`へ既存設定を保持して配置する。VS Codeのフック形式は別途公式資料で確認し、CLI用設定をそのまま適用しない。
+
+統括の委任ツールは作業セッション向け許可一覧に含めない。別セッション運用または導入先で検証した委任ツールの個別制御を使用する。包括許可はしない。

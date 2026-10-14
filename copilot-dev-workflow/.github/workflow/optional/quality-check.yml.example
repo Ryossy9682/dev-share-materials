@@ -1,0 +1,22 @@
+# Adopt into a protected CI workflow. Do not run untrusted PR code with secrets.
+name: Workflow evidence
+on: [workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Supply CASE_ROOT evidence via your authenticated artifact store.
+      # Supply TRUSTED_BASE_SHA from protected base-ref metadata, not PR files.
+      - name: Quality scope approval
+        env:
+          CASE_ROOT: ${{ vars.WORKFLOW_CASE_ROOT }}
+          TRUSTED_BASE_SHA: ${{ vars.WORKFLOW_BASE_SHA }}
+        run: python .github/workflow/runtime/ops.py --case "$CASE_ROOT" --repo "$GITHUB_WORKSPACE" --base "$TRUSTED_BASE_SHA" --input "$CASE_ROOT/evidence/quality-approval.json" quality

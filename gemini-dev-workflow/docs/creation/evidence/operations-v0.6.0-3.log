@@ -1,0 +1,10 @@
+Name                                      Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------------------
+.gemini/workflow/runtime/evaluate.py         93      0     16      0   100%
+.gemini/workflow/runtime/gdw.py             463      0    134      0   100%
+.gemini/workflow/runtime/maintenance.py     133      0     46      0   100%
+.gemini/workflow/runtime/ops.py             297      0     64      0   100%
+scripts/install.py                           56      0     30      0   100%
+scripts/validate.py                          35      0     22      0   100%
+-------------------------------------------------------------------------------------
+TOTAL                                      1077      0    312      0   100%

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "python .github/workflow/runtime/ops.py --case \"$CDW_CASE\" --input \"$CDW_HOOK_CONFIG\" hook",
+        "timeoutSec": 10
+      }
+    ]
+  }
+}

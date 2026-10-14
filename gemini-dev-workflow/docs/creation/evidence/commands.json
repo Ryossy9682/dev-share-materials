@@ -1,0 +1,83 @@
+[
+  {
+    "log": "unit-tests.log",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-m",
+      "coverage",
+      "run",
+      "--branch",
+      "--source=scripts",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_unit.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "exit_code": 0,
+    "executed_at": "2026-10-13T21:39:37.690504+00:00",
+    "sha256": "35578b35ac6b4a76681446df55a02cfc7c06b3d2ffd27af9cee474d9bad83e6e"
+  },
+  {
+    "log": "coverage-summary.log",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-m",
+      "coverage",
+      "report",
+      "-m"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "exit_code": 0,
+    "executed_at": "2026-10-13T21:39:37.777106+00:00",
+    "sha256": "4e48fab1596b5c7865de32d4a1fb80c38bbba92eaffa698901f2e81d671d5d9a"
+  },
+  {
+    "log": "coverage-export.log",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-m",
+      "coverage",
+      "json",
+      "-o",
+      "/workspace/scratch/dffb46c68408/gemini-dev-workflow/docs/creation/evidence/coverage.json"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "exit_code": 0,
+    "executed_at": "2026-10-13T21:39:37.861487+00:00",
+    "sha256": "7ea975b8daf62d8996beb65e4fdc41504e20ffc515c8a2d9bba9f77d713d43b6"
+  },
+  {
+    "log": "integration-tests.log",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_integration.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "exit_code": 0,
+    "executed_at": "2026-10-13T21:39:38.113058+00:00",
+    "sha256": "33fb1cd2bc94aadfd6ac5aa6b8c00b1b8464460e57b99a0b1c288ac995c8fdef"
+  },
+  {
+    "log": "static-validation.log",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "scripts/validate.py"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "exit_code": 0,
+    "executed_at": "2026-10-13T21:39:38.143610+00:00",
+    "sha256": "deb9c58bb4eb49b492222cc6f1f3ffb35606c7b0728fb4ed65a2415c9aad8c20"
+  }
+]

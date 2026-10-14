@@ -1,0 +1,795 @@
+{
+  "baseline_commit": "1f8229adb2dd9e013458da6a1c3f6b9c27e32120",
+  "baseline_version": "Gemini v0.6.0",
+  "replacements": [
+    [
+      "GEMINI.md",
+      ".github/copilot-instructions.md"
+    ],
+    [
+      ".gemini",
+      ".github"
+    ],
+    [
+      "Gemini Code Assist",
+      "GitHub Copilot"
+    ],
+    [
+      "Gemini",
+      "Copilot"
+    ],
+    [
+      "gemini-dev-workflow",
+      "copilot-dev-workflow"
+    ],
+    [
+      "/gdw:",
+      "/gdw-"
+    ],
+    [
+      "gdw",
+      "cdw"
+    ],
+    [
+      "GDW",
+      "CDW"
+    ],
+    [
+      "HOST = 'gemini'",
+      "HOST = 'copilot'"
+    ]
+  ],
+  "agent_extension_substitution": ".gemini/agents/gdw-ROLE.md -> .github/agents/cdw-ROLE.agent.md",
+  "common_files": [
+    {
+      "source": "GEMINI.md",
+      "target": ".github/copilot-instructions.md",
+      "source_sha256": "8d0ffc961b3829442351747990362904c0497389330200cec6f5d3b95f6b9829",
+      "target_sha256": "4130733a7fc2935f0eb7ba65d951047afbf75d38584806391b167c011a8feb29",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-bootstrap/SKILL.md",
+      "target": ".github/skills/cdw-bootstrap/SKILL.md",
+      "source_sha256": "3b439e1af77d52ee4b695b8ba1c6f78636f18de7a8f920dd2706baceb5a5836e",
+      "target_sha256": "07366c232152d636194381b4bf75bed6960135aed9ac4bf2c9b97e5524c90f1c",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-deliver/SKILL.md",
+      "target": ".github/skills/cdw-deliver/SKILL.md",
+      "source_sha256": "6fae261696f6cb6fb832aacb8074ff413c6624fdad29489f93fc56a21fd29867",
+      "target_sha256": "c3e96ea54c1ee9cdd9e4da9bcaedee7cccd76a37d2a9d28ed27f6e8a6d6c4f14",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-design/SKILL.md",
+      "target": ".github/skills/cdw-design/SKILL.md",
+      "source_sha256": "3badf6e3c4483eca2ffc2c3ba3a9ddca427c0f52303eb992504de67185eff114",
+      "target_sha256": "df311dffc540723d49506485266f49508dce816c733605c8191358e95897c7d2",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-estimate/SKILL.md",
+      "target": ".github/skills/cdw-estimate/SKILL.md",
+      "source_sha256": "6533fb6db83f76438672891e00165a4d4b31a5e08ec0d3b5b445a43a0602baff",
+      "target_sha256": "cbf078c4e5ea685c4ecb8fe760973f4961714030e1a38f42da721210507a7076",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-implement/SKILL.md",
+      "target": ".github/skills/cdw-implement/SKILL.md",
+      "source_sha256": "db0d6228bb35ffca79a6b91f1164e7ce6bb50a1979a6fe428192d70ab645822d",
+      "target_sha256": "f6be58d5d36fbae26ce3d443df277e10f347f164ab6f77de7a26d31242221aae",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-investigate/SKILL.md",
+      "target": ".github/skills/cdw-investigate/SKILL.md",
+      "source_sha256": "35c73bb14f8c56a89ee25b9b21e9ac9b6d93d7346ec1a8d97abfe0f04c893203",
+      "target_sha256": "bdee90130e2fcadb911b72c7ee603d7faefdf5dd80a4b811a229e4b0d6c19e44",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-release/SKILL.md",
+      "target": ".github/skills/cdw-release/SKILL.md",
+      "source_sha256": "403385293c6f7dfcfc9fe390112876eda4d38efa14fcb7130845f94f82166ed2",
+      "target_sha256": "f1a3628862515bdb196be7e140be4ce1060b5204f432e63dd9b25f6938acd0bb",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-requirements/SKILL.md",
+      "target": ".github/skills/cdw-requirements/SKILL.md",
+      "source_sha256": "ad7fd714a097829a7ac550b52b0df78148e205a9fe5799ae42f9de939b07e226",
+      "target_sha256": "3dad41d389f2d7ed803c252b71e3bf6f5d0bf96c6db68fe28f80e50e7660fc6a",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-review-design/SKILL.md",
+      "target": ".github/skills/cdw-review-design/SKILL.md",
+      "source_sha256": "78ae032c7fa504881e081bcda842c238a74568bcb346fbc67c984e0ab931caaa",
+      "target_sha256": "be3018885c7aa2c5e9b39b4cc41baaf52cd83461dc322e7e7b95fa1ba40cbeb4",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-review-implementation/SKILL.md",
+      "target": ".github/skills/cdw-review-implementation/SKILL.md",
+      "source_sha256": "beb93c60086e2df8b65bf0f4c4f04bbb911c173f9765957614f4add8a1cde9fa",
+      "target_sha256": "bef85479b605124525983241a96a746a5bee1b5181a9c6766e7519c061fd89ca",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-review-tests/SKILL.md",
+      "target": ".github/skills/cdw-review-tests/SKILL.md",
+      "source_sha256": "46ec1febf36d3dcdd9be6aa6bb896abd842658b6cb6f54ea40b619267beabff0",
+      "target_sha256": "dbb94979e6feaf684e7615490de992cacf02f61037cbea31b42a450700797f6b",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-tests/SKILL.md",
+      "target": ".github/skills/cdw-tests/SKILL.md",
+      "source_sha256": "1561c19508a82fb648902a44130b3d0be9bfee58990a268fd238749385f4e46d",
+      "target_sha256": "c6eca22df3b15fc0dedeb3128ad8b5346b4e66a6dc0f5263385b0c4e59bb805d",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-verify/SKILL.md",
+      "target": ".github/skills/cdw-verify/SKILL.md",
+      "source_sha256": "c80ec7229beda5dfd289397df6c39c6b7cb375014321a38e2caecf0f6ebadc90",
+      "target_sha256": "a4b7911951e85b6aae10b6250d002c2049cc25623f7b8d2f11c97fef860c1921",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/skills/gdw-workflow/SKILL.md",
+      "target": ".github/skills/cdw-workflow/SKILL.md",
+      "source_sha256": "61236023a729c760130885eb3ba5448554e76f6e6dfc5e84f5a83f415189f84b",
+      "target_sha256": "498cfb688257a62db28a53b0610c86fb6949c1e236d0b125c4efc43ae6ff11a8",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/optional/quality-check.yml.example",
+      "target": ".github/workflow/optional/quality-check.yml.example",
+      "source_sha256": "c933abbeeef9898808eeb0b6c149d899aa02712737bf47c299f170c422b09060",
+      "target_sha256": "8034840f37c8290f9a3da76e1b4bfdedd0576913770aace39be873d621e99eb5",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/project/architecture.md",
+      "target": ".github/workflow/project/architecture.md",
+      "source_sha256": "d51ac401779cfbce189a8a90c15bbd936b4068bbc2d0e3da9d2874d30d5395dd",
+      "target_sha256": "40e790a495ea1430a7dbeafff64119e53514b6556de51352334ffc30c2e815a2",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/project/commands.md",
+      "target": ".github/workflow/project/commands.md",
+      "source_sha256": "95d2ad79eaa8df0b7a8d10e3f374e36cfde383b55c69103e0164220425b58e3c",
+      "target_sha256": "3857a0ad58a191e55c291707d616180ce7575a379f1ad163299f6aafad831a5d",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/project/inventory.md",
+      "target": ".github/workflow/project/inventory.md",
+      "source_sha256": "eaa6ab0ecfc899f5a8f2142769c8df4644b84532ff1efdf44db919a7d7fd11f1",
+      "target_sha256": "74a827c36bf26376b466fbbeabf73b177fefc8dc10a289719248527ff36ebff7",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/project/profile.json",
+      "target": ".github/workflow/project/profile.json",
+      "source_sha256": "93880bb3bf7821464deb2acc84a583c882c5e9b05d3a575bfd937b49b86e4c1e",
+      "target_sha256": "93880bb3bf7821464deb2acc84a583c882c5e9b05d3a575bfd937b49b86e4c1e",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/project/review.md",
+      "target": ".github/workflow/project/review.md",
+      "source_sha256": "af11bb6aff8578891c2d0ef6b55888d6741edf8d6ad8e3022a3e7cbdd1ea54c2",
+      "target_sha256": "580277dca3752d4a159e6e2454e37b3283079b6bb139c23768c66d73d6e442f4",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/project/structure.md",
+      "target": ".github/workflow/project/structure.md",
+      "source_sha256": "2750153666cf1cce61d9a8f4157e007646dec30d96ad02ce93f66b9ebb68c710",
+      "target_sha256": "25f1585aa2e0bf9b2652b016c0385cdaceeb80c16373740af655ad15968382b0",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/project/templates.md",
+      "target": ".github/workflow/project/templates.md",
+      "source_sha256": "ca5aed141d9d76ac10c9e14de3ba671b358d996c561461a47ade982ef01a9bd0",
+      "target_sha256": "d697ee0d5c8749fad1437de42c6fc7ccc3461a8b4bde5e2c4cc6d4f4c2fc97e1",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/artifacts.md",
+      "target": ".github/workflow/references/artifacts.md",
+      "source_sha256": "6ef9fbea809557dc5e36dd35704c898f631f458915c7e72e03209c83d71d8549",
+      "target_sha256": "6ef9fbea809557dc5e36dd35704c898f631f458915c7e72e03209c83d71d8549",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/references/branching.md",
+      "target": ".github/workflow/references/branching.md",
+      "source_sha256": "90a33f80a18838b14e9bd4dc0344f825fd6df5076f46840503edb03314389161",
+      "target_sha256": "90a33f80a18838b14e9bd4dc0344f825fd6df5076f46840503edb03314389161",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/references/contract.md",
+      "target": ".github/workflow/references/contract.md",
+      "source_sha256": "18bdf5e6b730412417fcc60dc429d1ac08f908865aa0cd460ac25096a018235c",
+      "target_sha256": "5f3517184684a32a66fa8ff57fe9e1ce1de924c2c4c07ce5611f86a5c57c1d55",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/coverage.md",
+      "target": ".github/workflow/references/coverage.md",
+      "source_sha256": "9a5139c9337e338c3ea292758c9650f728649510bf61efcaa71188a4d817e338",
+      "target_sha256": "9a5139c9337e338c3ea292758c9650f728649510bf61efcaa71188a4d817e338",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/references/estimation.md",
+      "target": ".github/workflow/references/estimation.md",
+      "source_sha256": "7f3977d1df923e03cb7f9f7c9f78cc8a01b79821c190733f199854ff02da8dd2",
+      "target_sha256": "3ad5932b5609b515b7b778484d27a6197a2d90c7751abe0f5e28a66b1ba42161",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/operations.md",
+      "target": ".github/workflow/references/operations.md",
+      "source_sha256": "455504b9cdac480eb6b82fe7ef78136b175f5dcb0cf90a77ec099c82f18f8a03",
+      "target_sha256": "fbde15649de9c44f87ca1f9c9b45756d9df9568c2ea59f8d57ec44f6b84127a8",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/ops-dashboard.md",
+      "target": ".github/workflow/references/ops-dashboard.md",
+      "source_sha256": "11a0eb274b81e6410141e63bc81d0d1482c6d79441dbe13222a0e5ecda5da400",
+      "target_sha256": "b1578893616d725acd284131b5c5ccd58434be4ba052550ecf2fdd1fa43e3f15",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/ops-doctor.md",
+      "target": ".github/workflow/references/ops-doctor.md",
+      "source_sha256": "038d101d6d71f3e38da2c37ccb8a1968148660506fd6f8eb74110d1dbea0e5de",
+      "target_sha256": "095f843afae598f39791b90aff9bbbb5af9c771b492e235533d25fc9ba30c982",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/ops-evaluation.md",
+      "target": ".github/workflow/references/ops-evaluation.md",
+      "source_sha256": "1aa8d7c7d2321aca3a7c7021d1880c660fc68cac9414ae4e94da3119ea64941a",
+      "target_sha256": "242bf393ca80b5ad363087158d1778e1b64db9aaee0026a7685a7094b46e4e8a",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/ops-quality.md",
+      "target": ".github/workflow/references/ops-quality.md",
+      "source_sha256": "abbb6704688089783c5c1b933e0b5eb43ce690efc48e7c958ee0aa3b7fd4c326",
+      "target_sha256": "6dbd7e071587a4ac49342404dfe120eaf078b90392b13693045ea6ad9656f957",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/ops-sources.md",
+      "target": ".github/workflow/references/ops-sources.md",
+      "source_sha256": "2e80de2025c70159d9e3c18d558ee9ce8ab99867b92f803e47c4de8d9e5b52a0",
+      "target_sha256": "ae92cb38e2f1fb055f532b1722d9bc7a6209c99656abf8f5cb0387022a128588",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/ops-update.md",
+      "target": ".github/workflow/references/ops-update.md",
+      "source_sha256": "2c56d6097e13b88c06f155cf4dea304c8f44864d40d7c0aa25992f60d7b30a15",
+      "target_sha256": "965fae391821221f5de9974bd47f892245c8f26a1f4dfcb7ec7956566ffe974a",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/pr-artifacts.md",
+      "target": ".github/workflow/references/pr-artifacts.md",
+      "source_sha256": "edc61b6796a6226c9f6b5d1caa37a017fa19550ddfd155b77b90da16f5ab0a0e",
+      "target_sha256": "bdd4514a72a7c33a7407cf5e1b333f39b77a1e34b93c70f20f76e66fcb9483fc",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/project-setup.md",
+      "target": ".github/workflow/references/project-setup.md",
+      "source_sha256": "86f56c8842600b8699fa6d4977f9ba085965cf042f3ec82073a740df2dcca72b",
+      "target_sha256": "0c48186ef58c757cc763f4d061f3973655cba93e6944a1a1a1e4a45150085fa3",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/release.md",
+      "target": ".github/workflow/references/release.md",
+      "source_sha256": "0c88cc1b4f27532e1732600e29aaee52d1ee97b0c48282a0f718a2b8cc4c31ac",
+      "target_sha256": "0c88cc1b4f27532e1732600e29aaee52d1ee97b0c48282a0f718a2b8cc4c31ac",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/references/runtime.md",
+      "target": ".github/workflow/references/runtime.md",
+      "source_sha256": "e5b2be41a2aec306e651a19757e2ee85be43403cdaf4a3ef44ea0850c1e7a915",
+      "target_sha256": "70f77bebfc63496ce692c8fef6f8c0c57f5fb500f1ae7e103c32539d6407c8ae",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/references/stages.md",
+      "target": ".github/workflow/references/stages.md",
+      "source_sha256": "6e19a9d9e79faf7043770c98b581b2be3ee188b2c7bfaacf5b49bdf6881e824f",
+      "target_sha256": "695f8c7f7c32eaaf0c04b12ecb41087d5630d6bf76355edbedbe9d59f658f1d3",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/runtime/evaluate.py",
+      "target": ".github/workflow/runtime/evaluate.py",
+      "source_sha256": "636e78701547d89a2a0aaf7eecd3c2390639d9b9111401d7c747759d640f6b45",
+      "target_sha256": "636e78701547d89a2a0aaf7eecd3c2390639d9b9111401d7c747759d640f6b45",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/runtime/gdw.py",
+      "target": ".github/workflow/runtime/cdw.py",
+      "source_sha256": "4f2622898545a52323a8704124af8b0ccf55287bd27f8fac8bdbcba9fe042e7c",
+      "target_sha256": "cf89ae38da5562ce707715ddc08f6720685a16ae985959d24343c25eb74b4d1e",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/runtime/maintenance.py",
+      "target": ".github/workflow/runtime/maintenance.py",
+      "source_sha256": "35f0b2df466eb83437b59ebe0bd3346f9b71801c1f8f0554bfbef19f0dcc2a54",
+      "target_sha256": "987014e0e017f6105b9e152f5785a95cbd4988f106ec5a6d83fee6b0c6440a7e",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/runtime/ops.py",
+      "target": ".github/workflow/runtime/ops.py",
+      "source_sha256": "6c17181d2b2e60ead46585b66626a43ae9a2ba49755cdf169425550a96af8961",
+      "target_sha256": "8bad6e6dc4ff6d24e00945beb9e73ee3225b390c9e7262ce61a85e51639d8cc8",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/templates/00-index.md",
+      "target": ".github/workflow/templates/00-index.md",
+      "source_sha256": "0d8646adcfd3754b4672740e31acde119f26d90179f4a70b0c18ba2eb8e66ccd",
+      "target_sha256": "0d8646adcfd3754b4672740e31acde119f26d90179f4a70b0c18ba2eb8e66ccd",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/approval.md",
+      "target": ".github/workflow/templates/approval.md",
+      "source_sha256": "08d17752c8133bedabbd9cce912d0a0c2d06f638bbb87a2119be2a2f1363305d",
+      "target_sha256": "21c424de5f75c7a0461c08fedc683b2bff665350073af3e3cac9ac1d8d93f8be",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/templates/branch.md",
+      "target": ".github/workflow/templates/branch.md",
+      "source_sha256": "0614b2a539b8b8f320083cd14974870c415333b926b2f9275d3350a8cab3fe90",
+      "target_sha256": "0614b2a539b8b8f320083cd14974870c415333b926b2f9275d3350a8cab3fe90",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/coverage-scope.md",
+      "target": ".github/workflow/templates/coverage-scope.md",
+      "source_sha256": "535337b031c05ebb7c88a1018c20cd04aef87d9b1aff21976796d5fb010192cc",
+      "target_sha256": "535337b031c05ebb7c88a1018c20cd04aef87d9b1aff21976796d5fb010192cc",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/decisions.md",
+      "target": ".github/workflow/templates/decisions.md",
+      "source_sha256": "02180dd8d826960f413c16669829dce5eec7a1b237020524b8a9034279539d4e",
+      "target_sha256": "02180dd8d826960f413c16669829dce5eec7a1b237020524b8a9034279539d4e",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/delivery.md",
+      "target": ".github/workflow/templates/delivery.md",
+      "source_sha256": "dae5968f949e39a5842af0e502a8c536988e68ada27e395780e1f423b360eac0",
+      "target_sha256": "dae5968f949e39a5842af0e502a8c536988e68ada27e395780e1f423b360eac0",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/design-review.md",
+      "target": ".github/workflow/templates/design-review.md",
+      "source_sha256": "f5a1df3c6552af22abeab0f1c6b4196489fb9c226a773fa459d70a54eca312b7",
+      "target_sha256": "f5a1df3c6552af22abeab0f1c6b4196489fb9c226a773fa459d70a54eca312b7",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/design.md",
+      "target": ".github/workflow/templates/design.md",
+      "source_sha256": "b70f7eb70d911be9482aa3d15921307b8c65e65576b8456f724d12ef986b73cb",
+      "target_sha256": "b70f7eb70d911be9482aa3d15921307b8c65e65576b8456f724d12ef986b73cb",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/environment.md",
+      "target": ".github/workflow/templates/environment.md",
+      "source_sha256": "82583aea8853eea8ec95b403d29d6d708117c9056bf7bd6786f5378afe82d34b",
+      "target_sha256": "82583aea8853eea8ec95b403d29d6d708117c9056bf7bd6786f5378afe82d34b",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/estimates.md",
+      "target": ".github/workflow/templates/estimates.md",
+      "source_sha256": "9fbee51bb081a0aede5489f4ebb84ae98df563be19bba4e6a5e4382814d907d6",
+      "target_sha256": "5f4527b6902b0ad5b67564b089758db664f36ca00d8c571643c46c655767a584",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/templates/evaluation-review.json",
+      "target": ".github/workflow/templates/evaluation-review.json",
+      "source_sha256": "25b58bd88600b2eadbf14d02408422628bae2ee56b0fd917a3de986b69aac3b1",
+      "target_sha256": "25b58bd88600b2eadbf14d02408422628bae2ee56b0fd917a3de986b69aac3b1",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/gate.json",
+      "target": ".github/workflow/templates/gate.json",
+      "source_sha256": "d11887fda91ec58c0e875e776910d1d955a81d4853a2a9660ef04a6552388291",
+      "target_sha256": "d11887fda91ec58c0e875e776910d1d955a81d4853a2a9660ef04a6552388291",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/handoff.md",
+      "target": ".github/workflow/templates/handoff.md",
+      "source_sha256": "f7611dcc38852a37b60320e29ae653a258d2435e16b209e89c8f57b08900b33e",
+      "target_sha256": "0e9e07f4fa6827dbdb701711f2ff70d2273c7270702e6e6c0d6912750c04bf45",
+      "comparison": "platform-substitutions-only"
+    },
+    {
+      "source": ".gemini/workflow/templates/host-observations.json",
+      "target": ".github/workflow/templates/host-observations.json",
+      "source_sha256": "2735896be8e671bcacff9dd9f01f61b2b1d37c81e73e6e27c26a296f98628023",
+      "target_sha256": "2735896be8e671bcacff9dd9f01f61b2b1d37c81e73e6e27c26a296f98628023",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/implementation-review.md",
+      "target": ".github/workflow/templates/implementation-review.md",
+      "source_sha256": "43a63e919683cb47557591b3de071b0b2f71f27d63feb31aae2fe3b2b55f85e1",
+      "target_sha256": "43a63e919683cb47557591b3de071b0b2f71f27d63feb31aae2fe3b2b55f85e1",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/implementation.md",
+      "target": ".github/workflow/templates/implementation.md",
+      "source_sha256": "4a34d125afe4044aa069c1dbc3ac9d1dd44ef9147b2c4e88519ea16de735e695",
+      "target_sha256": "4a34d125afe4044aa069c1dbc3ac9d1dd44ef9147b2c4e88519ea16de735e695",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/investigation.md",
+      "target": ".github/workflow/templates/investigation.md",
+      "source_sha256": "07d5b6092a68538faf043e9e77171ba246cc183da8ebb019a756763043aa0621",
+      "target_sha256": "07d5b6092a68538faf043e9e77171ba246cc183da8ebb019a756763043aa0621",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/issues.md",
+      "target": ".github/workflow/templates/issues.md",
+      "source_sha256": "e4789af833948853e0b059679903829900825082fa3d76f3f23122a774f1ca4d",
+      "target_sha256": "e4789af833948853e0b059679903829900825082fa3d76f3f23122a774f1ca4d",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/metrics.json",
+      "target": ".github/workflow/templates/metrics.json",
+      "source_sha256": "13b937386bf0f8c20bcf6748c81e5be5fb4c13add83ddb4ea42742e58c545970",
+      "target_sha256": "13b937386bf0f8c20bcf6748c81e5be5fb4c13add83ddb4ea42742e58c545970",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/pr-report.md",
+      "target": ".github/workflow/templates/pr-report.md",
+      "source_sha256": "1e9613c2a79df6de93ce6528491fa80a94b68990eb899bc5f8306085bd9debe9",
+      "target_sha256": "1e9613c2a79df6de93ce6528491fa80a94b68990eb899bc5f8306085bd9debe9",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/quality-approval.json",
+      "target": ".github/workflow/templates/quality-approval.json",
+      "source_sha256": "8d074a517d72bbbc17cf8442c400abfccd0e36447a7a867ebc8ca81a7a529502",
+      "target_sha256": "8d074a517d72bbbc17cf8442c400abfccd0e36447a7a867ebc8ca81a7a529502",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/release.md",
+      "target": ".github/workflow/templates/release.md",
+      "source_sha256": "9cfc66c7a99bfc86ea1e53dedb8bc5886b5bcf725ecce27f895cec70c85ee81d",
+      "target_sha256": "9cfc66c7a99bfc86ea1e53dedb8bc5886b5bcf725ecce27f895cec70c85ee81d",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/requirements.md",
+      "target": ".github/workflow/templates/requirements.md",
+      "source_sha256": "d4e14339fbe5b3b3ac6b7928c38715d75eafbd436769e2ebf9165aadf9fbf6ae",
+      "target_sha256": "d4e14339fbe5b3b3ac6b7928c38715d75eafbd436769e2ebf9165aadf9fbf6ae",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/resume.md",
+      "target": ".github/workflow/templates/resume.md",
+      "source_sha256": "57a5b110048fa6d715fb99c7c0f96ded406970873cf7c92d248b8acb05cdad9a",
+      "target_sha256": "57a5b110048fa6d715fb99c7c0f96ded406970873cf7c92d248b8acb05cdad9a",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/review.md",
+      "target": ".github/workflow/templates/review.md",
+      "source_sha256": "e31b552593d3dc33bd10f6193abd0493972c009b9d55c79de95bf38a2bf9bb83",
+      "target_sha256": "e31b552593d3dc33bd10f6193abd0493972c009b9d55c79de95bf38a2bf9bb83",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/source-change.json",
+      "target": ".github/workflow/templates/source-change.json",
+      "source_sha256": "0c9ca8804526a7a9a0621dd08e5f15c40c0d1da8ca6b79fdd2ba2751d8592783",
+      "target_sha256": "0c9ca8804526a7a9a0621dd08e5f15c40c0d1da8ca6b79fdd2ba2751d8592783",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/source-observations.json",
+      "target": ".github/workflow/templates/source-observations.json",
+      "source_sha256": "d24b64f5914d433337b03d529a30807d0859a73bf75a8313e7a315b057298023",
+      "target_sha256": "d24b64f5914d433337b03d529a30807d0859a73bf75a8313e7a315b057298023",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/state.json",
+      "target": ".github/workflow/templates/state.json",
+      "source_sha256": "702d26c6a0f40926646c4b49173647931bd938f555b3ea4ca534c2cf21d7352e",
+      "target_sha256": "702d26c6a0f40926646c4b49173647931bd938f555b3ea4ca534c2cf21d7352e",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/test-cases.md",
+      "target": ".github/workflow/templates/test-cases.md",
+      "source_sha256": "97eb4531cdef52f9d127cafd963d4d2f7dfc52edb9e509ef39d86f7b19d4599a",
+      "target_sha256": "97eb4531cdef52f9d127cafd963d4d2f7dfc52edb9e509ef39d86f7b19d4599a",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/test-review.md",
+      "target": ".github/workflow/templates/test-review.md",
+      "source_sha256": "06b9724880523e3a9a15cb07c2f5b63cf681875a9a1cd3a834b132488af0ad8b",
+      "target_sha256": "06b9724880523e3a9a15cb07c2f5b63cf681875a9a1cd3a834b132488af0ad8b",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/tests.md",
+      "target": ".github/workflow/templates/tests.md",
+      "source_sha256": "7439d64c92c7e546ffd98ac195a9ea698696a9356307f7ad239c7fa50ad98a0e",
+      "target_sha256": "7439d64c92c7e546ffd98ac195a9ea698696a9356307f7ad239c7fa50ad98a0e",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/traceability.md",
+      "target": ".github/workflow/templates/traceability.md",
+      "source_sha256": "69a1b89a1207145d3ac5ad27f0a972b5c20bf136084112fc582993966e07d84c",
+      "target_sha256": "69a1b89a1207145d3ac5ad27f0a972b5c20bf136084112fc582993966e07d84c",
+      "comparison": "byte-identical"
+    },
+    {
+      "source": ".gemini/workflow/templates/verification.md",
+      "target": ".github/workflow/templates/verification.md",
+      "source_sha256": "5f588b5a551b1a45666bc78bd59d97e52ce83563d6c1f91fb582041e823c2669",
+      "target_sha256": "5f588b5a551b1a45666bc78bd59d97e52ce83563d6c1f91fb582041e823c2669",
+      "comparison": "byte-identical"
+    }
+  ],
+  "operation_skills": [
+    {
+      "source": ".gemini/commands/gdw/check.toml",
+      "target": ".github/skills/cdw-check/SKILL.md",
+      "source_sha256": "9e76306226512407d656ce5b26f34191d19a6c35dcfd3812f073f5f10e4caa85",
+      "target_sha256": "fbed1e3b3f2b378b057577980c6384510ea400bffbb2fbe2c011bc79a94c9467",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    },
+    {
+      "source": ".gemini/commands/gdw/impact.toml",
+      "target": ".github/skills/cdw-impact/SKILL.md",
+      "source_sha256": "bc8841b782c3178ba4e81b78eb6db22c537f5a69ff4bc8053fee0cae2f2eab10",
+      "target_sha256": "1041c54a179da6133f8649c4411b8d071d2d257ca22891baa13820eb45ea9d9f",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    },
+    {
+      "source": ".gemini/commands/gdw/mutate.toml",
+      "target": ".github/skills/cdw-mutate/SKILL.md",
+      "source_sha256": "6d4025be52c28df39c7a013dfe76921840b59da6cb5dc783604709fa97fb4411",
+      "target_sha256": "1c209d570e790154f62aa07f3c65bcb6228124fcf91f925b3a33b436530c6c7d",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    },
+    {
+      "source": ".gemini/commands/gdw/resume.toml",
+      "target": ".github/skills/cdw-resume/SKILL.md",
+      "source_sha256": "eeef87f8516abb3d033a5f3e9e35fc1ecda9e166f132fcaf842c75ea87216d2c",
+      "target_sha256": "d6938d7dc2040f000a68f7ae698c66909dc7c2fcd9af0436491cf4a933a07700",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    },
+    {
+      "source": ".gemini/commands/gdw/setup.toml",
+      "target": ".github/skills/cdw-setup/SKILL.md",
+      "source_sha256": "b0f2a01a357dc4a263bd8914f99999c5d2e40a2174e62ed6bd6683f7a8f187ce",
+      "target_sha256": "fa163b747437795302429c7e8fd136b6815fc56238bd1a87bfc8456c6d89126f",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    },
+    {
+      "source": ".gemini/commands/gdw/start.toml",
+      "target": ".github/skills/cdw-start/SKILL.md",
+      "source_sha256": "e3359c66ff9ca3bf4c88a73c0dbeedb5c0cffaa032dd8f3ab1da317a23cfaee3",
+      "target_sha256": "37baa6088f5b951f4fb1cb0ebd097c29188921a3faeb460bda177bab975aeafb",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    },
+    {
+      "source": ".gemini/commands/gdw/status.toml",
+      "target": ".github/skills/cdw-status/SKILL.md",
+      "source_sha256": "d655b05486f803011888fe43d8ed38a699ea786ea4fab4df0e3a122aebe628d5",
+      "target_sha256": "887c443d69d23af6b89b0cb4d550e7ac1f40dcece5458abdf7c08eb073754a22",
+      "comparison": "prompt-body-preserved-with-platform-and-argument-substitutions"
+    }
+  ],
+  "agent_files": [
+    {
+      "source": ".gemini/agents/gdw-bootstrap.md",
+      "target": ".github/agents/cdw-bootstrap.agent.md",
+      "source_sha256": "a0c1beb1207e91425008d71db0660d287328e36b6245eecd8cd576d4fd68ba44",
+      "target_sha256": "d33c3273b7d4ea26693fc8fae4c3802097bd1b3a45a2d5f1ddc700ba9a9d84b5",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-check.md",
+      "target": ".github/agents/cdw-check.agent.md",
+      "source_sha256": "8c0280d166030f8bf6844b0fc5bae47ba8faebac107495659dded1d5a1e32778",
+      "target_sha256": "4fca83c5a8027c36411a6daa74ceac52c4a98c82558aea928c24a1d49673ea32",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-deliver.md",
+      "target": ".github/agents/cdw-deliver.agent.md",
+      "source_sha256": "d5fa4f6a38a00cb10c4c9fac0d86c614b7ccdb8025016560c7904a8b20227f3d",
+      "target_sha256": "fbfee43d192f05968d7f2fff4d40707740e4e583ba2eb8ff7431253a3e0b1954",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-design.md",
+      "target": ".github/agents/cdw-design.agent.md",
+      "source_sha256": "877e8661c74ffd81cbe6bd2b7ce44c12359756b1bff1c80c53094331d432ecfc",
+      "target_sha256": "2b7f852ff16eef583b558345b5dd9619bed5fe9c92067c4869ceab732bf36ed8",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-estimate.md",
+      "target": ".github/agents/cdw-estimate.agent.md",
+      "source_sha256": "cfac2ac238fa1a8c6ee592e5e952db336f5b6542df4cb2559c5e310c76bd782f",
+      "target_sha256": "eb12e3626ddbb5d74669090d33be2992f31e651d32e0f756bdbd00cfb7f9dddb",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-impact.md",
+      "target": ".github/agents/cdw-impact.agent.md",
+      "source_sha256": "9330fa8e6e1fe307ad0fa4dd46db7af73b22fc4231ecc8ddfdb3e8a3aa22c57f",
+      "target_sha256": "aebfdd564aab8b4d72a2f607cb36ba0ec2f022b5c4904ec1c6002844246da446",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-implement.md",
+      "target": ".github/agents/cdw-implement.agent.md",
+      "source_sha256": "3d1ba33201fc48fa537649d7b3dc9028ab3adab60ee3e0dcb92abcb4254695bb",
+      "target_sha256": "dbb5c6658200d4ad706b1a755cec5d482380c4c34297ea882aed73594c58167f",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-investigate.md",
+      "target": ".github/agents/cdw-investigate.agent.md",
+      "source_sha256": "7ccf3dd38f2d56e36869ff8956d8322a8afda3c6be8b4ff7421b2ed89de55bbb",
+      "target_sha256": "6e4baf8a50600ef72ec08a1cdf41ec315a581c9996239f520755e19892e8e477",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-mutate.md",
+      "target": ".github/agents/cdw-mutate.agent.md",
+      "source_sha256": "56b1ef66ea24306171efb9fe5820864c25c0118674243c79c8961a0efb1dd152",
+      "target_sha256": "85b0374c2ed9428deab9c6156f3b501849642249d6711962bc68d886b425a98f",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-release.md",
+      "target": ".github/agents/cdw-release.agent.md",
+      "source_sha256": "22a20be2c46dc697505873f74ecd594d6af91a886e5f81c94073ee5068732a8e",
+      "target_sha256": "7f01c691a6d8bd5ee8142dd90868498f3eec855c6afac473bbb965e79de3a69a",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-requirements.md",
+      "target": ".github/agents/cdw-requirements.agent.md",
+      "source_sha256": "d9a921a8daac15bc94f7846a69d8b73d31be6f32d330868eff3ff53fff0df5ac",
+      "target_sha256": "e26039299a0576c6ee5db820e1d5b819d1a6c595cb1104cd396380ac3686df1e",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-resume.md",
+      "target": ".github/agents/cdw-resume.agent.md",
+      "source_sha256": "80954509be84b7f71f7938d8e620e2909de3834948715198cb9aad503163b055",
+      "target_sha256": "f7c8c891764f9dd7342f112b08573abeaa5395b30c6734788caba10a350f420b",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-review-design.md",
+      "target": ".github/agents/cdw-review-design.agent.md",
+      "source_sha256": "a8f197fe888b202c2f9db60d7e4209b7216872ebec131ce989378fedfc693016",
+      "target_sha256": "fa58fadc711fb389a33d5ad95924f2eb6dde3849df02b8e29c24c097b4b85c2e",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-review-implementation.md",
+      "target": ".github/agents/cdw-review-implementation.agent.md",
+      "source_sha256": "90d7f84abf7222e9009da89847c85df467d0c60f0bd795c76ce0b50a7ea4327d",
+      "target_sha256": "8f584df11347a4f651615ad5cac57484df7e27bf2666a8ddd927be7ec82534c8",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-review-tests.md",
+      "target": ".github/agents/cdw-review-tests.agent.md",
+      "source_sha256": "96e5402a8bb012ab563307a4dd1548708c8940f82307081b5c2bd0d326fce080",
+      "target_sha256": "d2157ec3fec55bf36d80b99588a179a3d2cc8edd42cfb6e7c6b3a03ae2af6960",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-setup.md",
+      "target": ".github/agents/cdw-setup.agent.md",
+      "source_sha256": "a1e8188b2793d44a046f192b95a0c55f80e2431fd42acac2cade0ece3012095b",
+      "target_sha256": "1374e3c3ba189b412d6c8fb4039abcaa859f538435975d13dbbb88849921304d",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-start.md",
+      "target": ".github/agents/cdw-start.agent.md",
+      "source_sha256": "83159dfd0fa29fd0d3f85dd413ca50ce64210d4ecd016611999d7636e8adfc5a",
+      "target_sha256": "6ac289ded2c65654212e0ce9116bcf8412c083e32d327b4e135d78d1be534916",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-status.md",
+      "target": ".github/agents/cdw-status.agent.md",
+      "source_sha256": "5118edb5f4f0afde09d0090b4ad5ab8cbddb5f2aeae04cfc1491e7147475b364",
+      "target_sha256": "08674ed2e3e106eca1ca4a7becb7c751e0a836670bb9f7949e7875dfe06c4987",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-tests.md",
+      "target": ".github/agents/cdw-tests.agent.md",
+      "source_sha256": "4b034f079a51eff921ce87d35bc5fd7e14c6db7ca1fd9eeab373e0f27b09d421",
+      "target_sha256": "e88defdadc078516eb8b6b6639131906c58c7f65e4ff3bb6d29b1cd5afc747e2",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-verify.md",
+      "target": ".github/agents/cdw-verify.agent.md",
+      "source_sha256": "d46a50442ab08fa613d04d7cd19228de6f09e38289ca21c1ead4776f8d341c3b",
+      "target_sha256": "f680efa082603a4de2766ca9377930cd782faa2e06e69d68d2071cdbcfad0211",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    },
+    {
+      "source": ".gemini/agents/gdw-workflow.md",
+      "target": ".github/agents/cdw-workflow.agent.md",
+      "source_sha256": "2aadf18b109c7877d39e9b2c7ac4db7567a52005bd1bfb6a3e9595f157221bd0",
+      "target_sha256": "5babf4cf7a35d006ce954a252550767fb7210542da03c0fc560748afc6fbb84c",
+      "comparison": "body-identical-after-platform-substitution; native model and tool frontmatter differs"
+    }
+  ],
+  "host_adaptations": [
+    ".gemini/workflow/references/compatibility.md",
+    ".gemini/workflow/references/sources.md",
+    ".gemini/workflow/references/notion-setup.md",
+    ".gemini/workflow/references/review.md",
+    ".gemini/workflow/references/model-policy.md",
+    ".gemini/workflow/references/ops-hooks.md",
+    ".gemini/workflow/templates/hook-config.json",
+    ".gemini/workflow/templates/hook-settings.json"
+  ],
+  "note": "Model routing common policy compared; native model IDs/tool formats differ. Host runtime behavior requires live verification."
+}

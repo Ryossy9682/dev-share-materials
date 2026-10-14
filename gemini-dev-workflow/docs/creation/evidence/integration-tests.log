@@ -1,0 +1,10 @@
+test_conflicting_workflow_file_prevents_all_writes (test_integration.WorkflowIntegrationTests.test_conflicting_workflow_file_prevents_all_writes)
+実配布物の後半で競合してもスキルを含め一切書き込まない。 ... ok
+test_install_in_existing_git_project (test_integration.WorkflowIntegrationTests.test_install_in_existing_git_project)
+既存Gitプロジェクトに導入し既存指示・Git状態を保持して再実行できる。 ... ok
+test_real_validator (test_integration.WorkflowIntegrationTests.test_real_validator) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.203s
+
+OK

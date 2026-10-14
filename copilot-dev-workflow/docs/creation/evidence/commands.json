@@ -1,0 +1,125 @@
+[
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "run",
+      "--branch",
+      "--source=scripts,.github/workflow/runtime",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_unit.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:07.452167+00:00",
+    "exit_code": 0,
+    "log": "unit.log",
+    "sha256": "97801b0c80aead3448da596c441f65fb8128dd92181f311fc8a6e2d4eab44abc"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "run",
+      "--append",
+      "--branch",
+      "--source=scripts,.github/workflow/runtime",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_runtime.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:07.812774+00:00",
+    "exit_code": 0,
+    "log": "runtime.log",
+    "sha256": "878d3ec860f0fd93393feb0c7582fe380ca5b5b1b75a84e46457ef20b5022638"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "report",
+      "--fail-under=100"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:09.590379+00:00",
+    "exit_code": 0,
+    "log": "coverage.log",
+    "sha256": "55bccb25a659320cfd74a15b0e5db3fdd77cc4958de9e332b47736f10b5f5191"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "json",
+      "-o",
+      "/workspace/scratch/dffb46c68408/copilot-dev-workflow/docs/creation/evidence/coverage.json"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:09.745534+00:00",
+    "exit_code": 0,
+    "log": "coverage-json.log",
+    "sha256": "53b7887b5734adf268a3e1b5ee8602c52826f332432148c27c7f70b473a29435"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_integration.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:09.921234+00:00",
+    "exit_code": 0,
+    "log": "integration.log",
+    "sha256": "d58aba779d78977108aeea64a24b8647ede81de68d08d1bb2968f0bc5ac060e9"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_parity.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:10.199974+00:00",
+    "exit_code": 0,
+    "log": "parity.log",
+    "sha256": "244075869c48c1155b1c1372b8e88c1b37e23979c25c5080353774f8cc196ea5"
+  },
+  {
+    "argv": [
+      "python",
+      "scripts/validate.py"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/copilot-dev-workflow",
+    "started_at": "2026-10-14T02:32:10.254085+00:00",
+    "exit_code": 0,
+    "log": "static.log",
+    "sha256": "deb9c58bb4eb49b492222cc6f1f3ffb35606c7b0728fb4ed65a2415c9aad8c20"
+  }
+]

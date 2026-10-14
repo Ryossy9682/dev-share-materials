@@ -1,0 +1,12 @@
+{
+  "observations": [],
+  "approval": {
+    "decision": "PENDING",
+    "actor": null,
+    "reason": null,
+    "old_hash": null,
+    "new_hash": null,
+    "evidence_path": "approval.md",
+    "evidence_hash": null
+  }
+}

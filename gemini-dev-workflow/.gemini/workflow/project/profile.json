@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "NOT_STARTED",
+  "workspace_root": null,
+  "target_root": null,
+  "source_roots": [],
+  "excluded_paths": [],
+  "source_revision": null,
+  "source_inventory_sha256": null,
+  "setup_artifact_root": null,
+  "checkpoint_root": null,
+  "unresolved": [],
+  "notion_sources": []
+}

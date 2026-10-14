@@ -1,0 +1,24 @@
+{
+  "unit": "hour",
+  "order": [
+    "C",
+    "B",
+    "A"
+  ],
+  "stages": {
+    "requirements": {
+      "C": {
+        "estimate_hours": null,
+        "actual_hours": null
+      },
+      "B": {
+        "estimate_hours": null,
+        "actual_hours": null
+      },
+      "A": {
+        "estimate_hours": null,
+        "actual_hours": null
+      }
+    }
+  }
+}

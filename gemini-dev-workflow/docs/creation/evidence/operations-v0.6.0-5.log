@@ -1,0 +1,10 @@
+test_every_role_has_explicit_model_in_native_agent (test_models.ModelRoutingTests.test_every_role_has_explicit_model_in_native_agent) ... ok
+test_installer_copies_models_without_copying_user_settings (test_models.ModelRoutingTests.test_installer_copies_models_without_copying_user_settings) ... ok
+test_policy_prevents_silent_fallback_and_supports_questions (test_models.ModelRoutingTests.test_policy_prevents_silent_fallback_and_supports_questions) ... ok
+test_reviewers_are_read_only_and_read_requirements (test_models.ModelRoutingTests.test_reviewers_are_read_only_and_read_requirements) ... ok
+test_skills_route_to_existing_agent_definitions (test_models.ModelRoutingTests.test_skills_route_to_existing_agent_definitions) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.061s
+
+OK

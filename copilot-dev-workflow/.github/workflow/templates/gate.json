@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "repo": "/absolute/repository",
+  "branch": "feature.example",
+  "stage": "bootstrap",
+  "completed": [],
+  "checkpoint_dir": "/absolute/approved/checkpoints",
+  "inventory": {},
+  "source_map": {},
+  "records": {},
+  "inputs": {},
+  "notion": [],
+  "traceability": {},
+  "coverage_scope": [],
+  "critical_mutations": [],
+  "_instructions": {
+    "creation": "Use init to populate repository inventory and source_map; this template is a schema example, not passing evidence.",
+    "source_map": "Every repository file maps to fixed stages. init conservatively maps tests/ to tests and other files to implement; review and refine these candidate classifications. An empty owners array requires an exclusions[path] reason. New/deleted sources require explicit mapping reconciliation then impact.",
+    "inputs": "Optional stage -> case-relative artifact paths. requirements.md must always exist; bootstrap pins branch.md instead of the evolving draft. Later stages bind requirements.md.",
+    "notion_entry": {
+      "url": "https://www.notion.so/example",
+      "status": "read",
+      "read_at": "ISO8601",
+      "path": "evidence/notion-source.md",
+      "hash": "SHA256"
+    },
+    "approval_file": {
+      "path": "evidence/approval.json (release: evidence/release-approval.json)",
+      "decision": "APPROVED",
+      "actor_id": "human-record-id",
+      "recorded_at": "ISO8601",
+      "requirements_hash": "SHA256",
+      "evidence_path": "approval.md",
+      "evidence_hash": "SHA256",
+      "release_fields": {
+        "source_hash": "canonical current inventory SHA256 excluding only reviewed empty source_map owners",
+        "environment": "matches gate.release_environment",
+        "release_hash": "SHA256 release.md including rollback plan"
+      }
+    },
+    "review_file": {
+      "path": "evidence/review-design.json (or review-implementation/review-tests)",
+      "decision": "PASS",
+      "author_id": "author-session-id",
+      "reviewer_id": "different-session-id",
+      "recorded_at": "ISO8601",
+      "findings": [],
+      "checks": [
+        "requirement IDs and reviewed concerns"
+      ],
+      "requirements_hash": "SHA256",
+      "artifacts": {
+        "design.md": "SHA256",
+        "test-cases.md": "SHA256",
+        "traceability.md": "SHA256"
+      },
+      "record_path": "design-review.md",
+      "record_hash": "SHA256",
+      "source_hash": "SHA256 canonical source inventory filtered by source_map owners through implement (implementation review) or tests (test review)",
+      "scope_hash": "review-tests: SHA256 canonical object of coverage_scope, source_map, exclusions, critical_mutations"
+    },
+    "traceability_entry": {
+      "REQ-001": {
+        "design": {
+          "design.md": "SHA256"
+        },
+        "source": {
+          "src/example.py": "SHA256"
+        },
+        "test": {
+          "tests/test_example.py": "SHA256"
+        },
+        "execution": {
+          "unit": "ut-run-id",
+          "integration": "it-run-id",
+          "acceptance": "acceptance-run-id"
+        }
+      }
+    },
+    "coverage_file": {
+      "path": "evidence/coverage.json",
+      "unit_run": "ut-run-id",
+      "integration_run": "it-run-id",
+      "report_path": "evidence/coverage-report.json",
+      "report_hash": "SHA256",
+      "source_hashes": {
+        "src/example.py": "SHA256"
+      },
+      "zero_branch_reviewed": []
+    },
+    "coverage_report": "coverage.py JSON with meta.branch_coverage=true and files keyed by repo-relative paths, executed_lines/missing_lines/executed_branches/missing_branches. coverage_scope names every added/changed executable file. Unit command must generate the report and run must bind it using --coverage-report.",
+    "mutation_applicable": {
+      "id": "MUT-001",
+      "reason": "critical failure assertion",
+      "applicable": true,
+      "spec_hash": "SHA256 canonical mutation spec JSON"
+    },
+    "mutation_nonapplicable": {
+      "id": "MUT-002",
+      "reason": "document-only change",
+      "applicable": false,
+      "review_path": "evidence/mutation-na.json"
+    },
+    "mutation_na_review": {
+      "author_id": "author-session",
+      "reviewer_id": "other-session",
+      "decision": "PASS",
+      "requirements_hash": "SHA256",
+      "mutation_id": "MUT-002",
+      "reason": "document-only change"
+    },
+    "mutation_spec": {
+      "id": "MUT-001",
+      "path": "src/example.py",
+      "source_hash": "SHA256",
+      "before": "unique original text",
+      "after": "deliberate defect",
+      "argv": [
+        "python",
+        "-m",
+        "unittest"
+      ],
+      "timeout": 120,
+      "expected_exit_code": 1,
+      "expected_failure_marker": "AssertionError: named critical assertion"
+    },
+    "trust_boundary": "Local records validate consistency; they do not authenticate human approvals, independent agents, semantic source completeness, or hostile commands. Run only trusted test argv. Isolated mutation copies are not an OS sandbox. Checkpoints restore evidence, never repository code.",
+    "shared_documents": "record snapshots under evidence/stages/STAGE/PATH. For estimates.md, approval.md, traceability.md, coverage-scope.md, test-cases.md, release.md, an active or recorded later owner supersedes current-file checking for older stages; their original snapshots remain hash-checked. design.md and requirements.md are never superseded.",
+    "traceability_ids": "REQ/AC IDs are extracted only before a Markdown heading 更新履歴 or Update history.",
+    "progress": "gate.json is the sole stage authority. state.json remains untouched. Git branch/HEAD identity must be checked by the upstream workflow; runtime records branch metadata, not live Git verification.",
+    "release": "release is a terminal pre-deployment gate. Use checkpoint ARCHIVE to save its final evidence; runtime does not deploy or record successful deployment."
+  },
+  "baseline_inventory": {},
+  "exclusions": {},
+  "release_environment": ""
+}

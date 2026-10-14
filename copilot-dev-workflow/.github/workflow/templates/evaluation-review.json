@@ -1,0 +1,45 @@
+{
+  "reviewer": null,
+  "checks": {
+    "questions": {
+      "decision": "PENDING",
+      "reason": null,
+      "observed_model": null,
+      "record_hash": null,
+      "host_evidence": null,
+      "host_evidence_hash": null
+    },
+    "design-rework": {
+      "decision": "PENDING",
+      "reason": null,
+      "observed_model": null,
+      "record_hash": null,
+      "host_evidence": null,
+      "host_evidence_hash": null
+    },
+    "implementation": {
+      "decision": "PENDING",
+      "reason": null,
+      "observed_model": null,
+      "record_hash": null,
+      "host_evidence": null,
+      "host_evidence_hash": null
+    },
+    "tests": {
+      "decision": "PENDING",
+      "reason": null,
+      "observed_model": null,
+      "record_hash": null,
+      "host_evidence": null,
+      "host_evidence_hash": null
+    },
+    "resume": {
+      "decision": "PENDING",
+      "reason": null,
+      "observed_model": null,
+      "record_hash": null,
+      "host_evidence": null,
+      "host_evidence_hash": null
+    }
+  }
+}

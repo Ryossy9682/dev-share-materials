@@ -1,0 +1,20 @@
+{
+  "session_id": null,
+  "repo": null,
+  "role": "requirements",
+  "read_tools": [
+    "view",
+    "grep",
+    "rg",
+    "glob"
+  ],
+  "write_tools": [
+    "create",
+    "edit"
+  ],
+  "shell_tools": [
+    "bash",
+    "powershell"
+  ],
+  "allowed_argv": []
+}

@@ -1,0 +1,197 @@
+{
+  "result": "PASS",
+  "date": "2026-10-13T21:37:49.923247+00:00",
+  "scenario": "local develop stale, remote develop newer, fetch then branch from exact fetched SHA; local develop unchanged",
+  "base": "516dd12bf5213ac6d58a53b1834b7b2f3cb0e4c8",
+  "latest": "91b85d6e5f814b08065fd879d3d64606f31c9d28",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "init",
+        "--bare",
+        "/tmp/tmp6noficbe/origin.git"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "init",
+        "-b",
+        "develop",
+        "/tmp/tmp6noficbe/seed"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "add",
+        "app.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=test@example.invalid",
+        "commit",
+        "-m",
+        "baseline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "remote",
+        "add",
+        "origin",
+        "/tmp/tmp6noficbe/origin.git"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "push",
+        "origin",
+        "develop"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "clone",
+        "--branch",
+        "develop",
+        "/tmp/tmp6noficbe/origin.git",
+        "/tmp/tmp6noficbe/work"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "add",
+        "app.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=test@example.invalid",
+        "commit",
+        "-m",
+        "new develop"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "push",
+        "origin",
+        "develop"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "check-ref-format",
+        "--branch",
+        "feature.bulk-approval"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "fetch",
+        "--no-tags",
+        "origin",
+        "refs/heads/develop"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "--verify",
+        "FETCH_HEAD^{commit}"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "switch",
+        "--no-track",
+        "-c",
+        "feature.bulk-approval",
+        "91b85d6e5f814b08065fd879d3d64606f31c9d28"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "develop"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "merge_performed": false
+}

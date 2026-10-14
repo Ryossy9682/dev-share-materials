@@ -1,0 +1,22 @@
+{
+  "schema_version": 2,
+  "task_id": null,
+  "stage": "requirements-setup",
+  "status": "NOT_STARTED",
+  "owner_session": null,
+  "base_sha": null,
+  "head_sha": null,
+  "requirements_version": null,
+  "artifacts": [],
+  "approvals": [],
+  "issues": [],
+  "stale_stages": [],
+  "next_action": "要件定義冒頭でブランチ名を決め、最新developから作成する",
+  "updated_at": null,
+  "branch": null,
+  "repo_id": null,
+  "artifact_root": null,
+  "checkpoint_path": null,
+  "remote": null,
+  "develop_fetched_at": null
+}

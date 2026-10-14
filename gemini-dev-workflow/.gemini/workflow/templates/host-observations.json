@@ -1,0 +1,95 @@
+{
+  "observed_at": null,
+  "host_version": null,
+  "settings_checked": false,
+  "agents_detected": false,
+  "models": {
+    "workflow": {
+      "model": null,
+      "hash": null
+    },
+    "bootstrap": {
+      "model": null,
+      "hash": null
+    },
+    "requirements": {
+      "model": null,
+      "hash": null
+    },
+    "investigate": {
+      "model": null,
+      "hash": null
+    },
+    "estimate": {
+      "model": null,
+      "hash": null
+    },
+    "design": {
+      "model": null,
+      "hash": null
+    },
+    "review-design": {
+      "model": null,
+      "hash": null
+    },
+    "implement": {
+      "model": null,
+      "hash": null
+    },
+    "review-implementation": {
+      "model": null,
+      "hash": null
+    },
+    "tests": {
+      "model": null,
+      "hash": null
+    },
+    "review-tests": {
+      "model": null,
+      "hash": null
+    },
+    "verify": {
+      "model": null,
+      "hash": null
+    },
+    "deliver": {
+      "model": null,
+      "hash": null
+    },
+    "release": {
+      "model": null,
+      "hash": null
+    },
+    "setup": {
+      "model": null,
+      "hash": null
+    },
+    "start": {
+      "model": null,
+      "hash": null
+    },
+    "status": {
+      "model": null,
+      "hash": null
+    },
+    "resume": {
+      "model": null,
+      "hash": null
+    },
+    "check": {
+      "model": null,
+      "hash": null
+    },
+    "impact": {
+      "model": null,
+      "hash": null
+    },
+    "mutate": {
+      "model": null,
+      "hash": null
+    }
+  },
+  "log": "evidence/host.log",
+  "log_hash": null,
+  "notion_urls": []
+}

@@ -1,0 +1,28 @@
+test_atomic_cleanup_and_failed_restore_leave_no_partial_files (test_runtime.RuntimeTests.test_atomic_cleanup_and_failed_restore_leave_no_partial_files) ... ok
+test_checkpoint_restore_roundtrip_and_corruption (test_runtime.RuntimeTests.test_checkpoint_restore_roundtrip_and_corruption) ... ok
+test_cli_commands_report_progress_and_failure_exit_codes (test_runtime.RuntimeTests.test_cli_commands_report_progress_and_failure_exit_codes) ... ok
+test_cli_malformed_gate_fails_closed (test_runtime.RuntimeTests.test_cli_malformed_gate_fails_closed) ... ok
+test_coverage_requires_full_lines_branches_and_independent_it (test_runtime.RuntimeTests.test_coverage_requires_full_lines_branches_and_independent_it) ... ok
+test_excluded_documents_preserve_execution_evidence (test_runtime.RuntimeTests.test_excluded_documents_preserve_execution_evidence) ... ok
+test_fixed_order_and_atomic_advance_checkpoint (test_runtime.RuntimeTests.test_fixed_order_and_atomic_advance_checkpoint) ... ok
+test_independent_review_rejects_same_author_stale_targets_and_bare_pass (test_runtime.RuntimeTests.test_independent_review_rejects_same_author_stale_targets_and_bare_pass) ... ok
+test_initialization_preserves_state_and_requires_new_gate (test_runtime.RuntimeTests.test_initialization_preserves_state_and_requires_new_gate) ... ok
+test_inventory_ignores_case_and_cache_and_module_entrypoint (test_runtime.RuntimeTests.test_inventory_ignores_case_and_cache_and_module_entrypoint) ... ok
+test_mapping_reconciliation_exclusions_and_missing_notion_dependency (test_runtime.RuntimeTests.test_mapping_reconciliation_exclusions_and_missing_notion_dependency) ... ok
+test_missing_empty_and_stale_artifacts_and_source (test_runtime.RuntimeTests.test_missing_empty_and_stale_artifacts_and_source) ... ok
+test_mutation_killed_survivor_invalid_timeout_and_original_untouched (test_runtime.RuntimeTests.test_mutation_killed_survivor_invalid_timeout_and_original_untouched) ... ok
+test_mutation_nonapplicability_must_be_reviewed (test_runtime.RuntimeTests.test_mutation_nonapplicability_must_be_reviewed) ... ok
+test_mutation_syntax_error_wrong_failure_and_mutant_timeout_are_invalid (test_runtime.RuntimeTests.test_mutation_syntax_error_wrong_failure_and_mutant_timeout_are_invalid) ... ok
+test_normal_workflow_through_release_with_shared_document_updates (test_runtime.RuntimeTests.test_normal_workflow_through_release_with_shared_document_updates) ... ok
+test_paths_reject_escape_and_symlinks (test_runtime.RuntimeTests.test_paths_reject_escape_and_symlinks) ... ok
+test_requirements_approval_is_bound_to_actual_hash (test_runtime.RuntimeTests.test_requirements_approval_is_bound_to_actual_hash) ... ok
+test_runner_real_exit_log_staleness_timeout_and_no_shell (test_runtime.RuntimeTests.test_runner_real_exit_log_staleness_timeout_and_no_shell) ... ok
+test_selective_impact_preserves_prior_stages_and_flags_unmapped (test_runtime.RuntimeTests.test_selective_impact_preserves_prior_stages_and_flags_unmapped) ... ok
+test_traceability_requires_every_id_all_layers_and_real_runs (test_runtime.RuntimeTests.test_traceability_requires_every_id_all_layers_and_real_runs) ... ok
+test_unit_report_must_be_fresh_and_coverage_scope_cannot_omit_changed_code (test_runtime.RuntimeTests.test_unit_report_must_be_fresh_and_coverage_scope_cannot_omit_changed_code) ... ok
+test_unread_and_changed_notion_blocks (test_runtime.RuntimeTests.test_unread_and_changed_notion_blocks) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.601s
+
+OK

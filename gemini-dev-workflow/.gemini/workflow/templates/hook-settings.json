@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "name": "gdw-stage-guard",
+            "type": "command",
+            "command": "python .gemini/workflow/runtime/ops.py --case \"$GDW_CASE\" --input \"$GDW_HOOK_CONFIG\" hook",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
+  }
+}

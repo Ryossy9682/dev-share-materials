@@ -1,0 +1,19 @@
+{
+  "session_id": null,
+  "repo": null,
+  "role": "requirements",
+  "read_tools": [
+    "read_file",
+    "list_directory",
+    "glob",
+    "grep_search"
+  ],
+  "write_tools": [
+    "write_file",
+    "replace"
+  ],
+  "shell_tools": [
+    "run_shell_command"
+  ],
+  "allowed_argv": []
+}

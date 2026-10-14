@@ -1,0 +1,32 @@
+test_all_parent_file_collisions (test_unit.InstallTests.test_all_parent_file_collisions)
+既存の途中階層ファイルをすべて書込前に検出する。 ... ok
+test_conflict_does_not_write (test_unit.InstallTests.test_conflict_does_not_write)
+既存ファイル競合でGEMINI.mdなどを一切書き換えない。 ... ok
+test_directory_collision (test_unit.InstallTests.test_directory_collision) ... ok
+test_entrypoint (test_unit.InstallTests.test_entrypoint) ... ok
+test_invalid_markers (test_unit.InstallTests.test_invalid_markers) ... ok
+test_main_dry_run_apply_and_no_changes (test_unit.InstallTests.test_main_dry_run_apply_and_no_changes) ... ok
+test_missing_target (test_unit.InstallTests.test_missing_target) ... ok
+test_new_install_and_idempotency (test_unit.InstallTests.test_new_install_and_idempotency)
+新規導入を実施し、2回目の変更計画が空になることを確認する。 ... ok
+test_only_distribution_files_are_copied (test_unit.InstallTests.test_only_distribution_files_are_copied)
+実行キャッシュや接続設定を配布せずコマンドとランタイムを導入する。 ... ok
+test_parent_file_collision (test_unit.InstallTests.test_parent_file_collision) ... ok
+test_preserve_context_bytes (test_unit.InstallTests.test_preserve_context_bytes)
+LF・CRLF・末尾改行なしを保持し再実行で変化しない。 ... ok
+test_preserve_existing_context (test_unit.InstallTests.test_preserve_existing_context)
+既存指示をバイト列の先頭にそのまま残す。 ... ok
+test_symlink_context (test_unit.InstallTests.test_symlink_context) ... ok
+test_symlink_parent (test_unit.InstallTests.test_symlink_parent) ... ok
+test_symlink_target_and_ancestor (test_unit.InstallTests.test_symlink_target_and_ancestor)
+導入先そのものと祖先のリンクを解決前に拒否する。 ... ok
+test_broken_metadata_links_and_json (test_unit.ValidateTests.test_broken_metadata_links_and_json) ... ok
+test_entrypoint (test_unit.ValidateTests.test_entrypoint) ... ok
+test_main_pass_and_fail (test_unit.ValidateTests.test_main_pass_and_fail) ... ok
+test_missing_structure (test_unit.ValidateTests.test_missing_structure) ... ok
+test_valid_fixture (test_unit.ValidateTests.test_valid_fixture) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.100s
+
+OK

@@ -1,0 +1,7 @@
+Name                              Stmts   Miss Branch BrPart  Cover
+-------------------------------------------------------------------
+.github/workflow/runtime/cdw.py     453      0    134      0   100%
+scripts/install.py                   56      0     30      0   100%
+scripts/validate.py                  35      0     22      0   100%
+-------------------------------------------------------------------
+TOTAL                               544      0    186      0   100%

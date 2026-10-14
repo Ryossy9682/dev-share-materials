@@ -1,0 +1,119 @@
+[
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "run",
+      "--branch",
+      "--source=scripts,.gemini/workflow/runtime",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_unit.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:13.837313+00:00",
+    "exit_code": 0,
+    "log": "unit-v0.4.0.log",
+    "sha256": "41519ce04f3c9192fd3847539963fc1cb24053db2fb90c9671e122071546d922"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "run",
+      "--append",
+      "--branch",
+      "--source=scripts,.gemini/workflow/runtime",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_runtime.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:14.071132+00:00",
+    "exit_code": 0,
+    "log": "runtime-v0.4.0.log",
+    "sha256": "3daa5e2fa05c36a51ce9f0520e653494fb4734164ef488c3ca34e92599f1c673"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "report",
+      "--fail-under=100"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:15.667684+00:00",
+    "exit_code": 0,
+    "log": "coverage-v0.4.0.log",
+    "sha256": "880b7c04a9b4478392088943778930989a33d496e6e0d2acbcc3e122c3cae302"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "coverage",
+      "json",
+      "-o",
+      "/workspace/scratch/dffb46c68408/gemini-dev-workflow/docs/creation/evidence/coverage-v0.4.0.json"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:15.789522+00:00",
+    "exit_code": 0,
+    "log": "coverage-json-v0.4.0.log",
+    "sha256": "90d9bc5591b84b0629e34ecda79b8d0d52ee7a6b92a219fd379b66daa78292dc"
+  },
+  {
+    "argv": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_integration.py",
+      "-v"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:15.931105+00:00",
+    "exit_code": 0,
+    "log": "integration-v0.4.0.log",
+    "sha256": "43dc7d7846b614e79079ddab12879b84392f41c6efc97d099c68b83a4ac3acfb"
+  },
+  {
+    "argv": [
+      "python",
+      "scripts/validate.py"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:16.177732+00:00",
+    "exit_code": 0,
+    "log": "static-v0.4.0.log",
+    "sha256": "deb9c58bb4eb49b492222cc6f1f3ffb35606c7b0728fb4ed65a2415c9aad8c20"
+  },
+  {
+    "argv": [
+      "python",
+      "-c",
+      "import pathlib,tomllib; files=list(pathlib.Path('.gemini/commands').rglob('*.toml')); [tomllib.loads(p.read_text()) for p in files]; print('PASS:',len(files),'TOML commands')"
+    ],
+    "cwd": "/workspace/scratch/dffb46c68408/gemini-dev-workflow",
+    "started_at": "2026-10-13T23:50:16.212675+00:00",
+    "exit_code": 0,
+    "log": "commands-v0.4.0.log",
+    "sha256": "f77ea92897ce5314ef487ff2dba64cf426036006e7cdac0626c22da7d4983188"
+  }
+]
